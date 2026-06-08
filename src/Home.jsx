@@ -388,11 +388,9 @@ export default function App() {
           NAV — flush logo to far left
       ══════════════════════════════════════ */}
       <header className={`fixed top-0 left-0 right-0 z-50 nav-wrap transition-all duration-300 ${scrolled ? "shadow-sm" : ""}`}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-18" style={{paddingLeft: "0px", paddingRight: "40px"}}>
-
-          {/* Logo — flush to far left, no left padding */}
-          <div className="flex items-center gap-3" style={{paddingLeft: "0px"}}>
-            <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center" style={{borderRadius: "0 0 12px 0", marginLeft: "0"}}>
+        <div className="flex items-center justify-between h-16 md:h-18 w-full" style={{paddingLeft: "0px", paddingRight: "40px"}}>
+          <div className="flex items-center gap-3" style={{marginLeft: "0", paddingLeft: "0"}}>
+            <div style={{width:"36px", height:"36px", background:"#000", borderRadius:"0 0 12px 0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0}}>
               <span className="text-white font-bebas text-lg leading-none">N</span>
             </div>
             <span className="font-display font-black text-xl text-black tracking-tight leading-none">NexusHub</span>
