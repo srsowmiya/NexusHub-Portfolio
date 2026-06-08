@@ -1,4 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAJFDqn86fBQvbIBoSvb4N0CRp3vuwAr8s",
+  authDomain: "nexushub-518c8.firebaseapp.com",
+  projectId: "nexushub-518c8",
+  storageBucket: "nexushub-518c8.firebasestorage.app",
+  messagingSenderId: "1086062284504",
+  appId: "1:1086062284504:web:137ae2c6f3d3a8ef5391ad",
+  measurementId: "G-P3KH7ZMT91"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
 const useInView = (threshold = 0.12) => {
   const ref = useRef(null);
@@ -33,7 +48,7 @@ const SERVICES = [
   { code: "GRC",    name: "Governance, Risk & Compliance", desc: "Risk management, audit & policy compliance",             num: "08" },
   { code: "SAM",    name: "Software Asset Management",     desc: "License management, compliance & cost control",          num: "09" },
   { code: "HAM",    name: "Hardware Asset Management",     desc: "Hardware tracking, lifecycle & compliance",              num: "10" },
-  { code: "SOM",    name: "Sales Operations Management", desc: "End-to-end service operations visibility",               num: "11" },
+  { code: "SOM",    name: "Sales Operations Management",   desc: "End-to-end service operations visibility",               num: "11" },
 ];
 
 const TEAM = [
@@ -51,7 +66,7 @@ const TEAM = [
   },
   {
     name: "Gokul",
-    role: "Founder & CTO",
+    role: "Co-Founder & CTO",
     initials: "G",
     photo: "/images/Gokul.jpeg",
     desc: "Technical expert across ServiceNow modules, platform architecture, and enterprise integrations.",
@@ -76,20 +91,19 @@ const TEAM = [
 ];
 
 const WHY = [
-  { icon:"⚡", t:"Experienced Team",   d:"Deep ServiceNow expertise across all major modules and real enterprise implementations. Our consultants have delivered projects across ITSM, CSM, HRSD, SecOps, and more.", highlight:"5+ years avg. experience" },
-  { icon:"🚀", t:"Fast Delivery",      d:"Agile delivery methodology ensures faster time-to-value without sacrificing quality. We work in sprints, deliver early, and iterate quickly to meet your deadlines.", highlight:"30% faster than industry avg." },
-  { icon:"💎", t:"Affordable Pricing", d:"Competitive, transparent pricing for businesses of all sizes — no hidden costs, no surprises. We offer flexible engagement models from fixed-price to time & material.", highlight:"Flexible engagement models" },
-  { icon:"🛡️", t:"24/7 Support",       d:"Round-the-clock support so your ServiceNow platform never sleeps. Our dedicated support team is always on call — critical incidents are resolved within the hour.", highlight:"< 1hr critical response time" },
-  { icon:"🎯", t:"Custom Solutions",   d:"No templates, no copy-paste implementations. Every engagement begins with deep discovery. We tailor every workflow, integration, and UI to your exact business context.", highlight:"100% tailored implementations" },
-  { icon:"🌏", t:"Global Vision",      d:"Born in India — built to serve clients across the globe. We combine local understanding with international delivery standards and best practices.", highlight:"Clients across 5+ countries" },
+  { t:"Experienced Team",   d:"Deep ServiceNow expertise across all major modules and real enterprise implementations. Our consultants have delivered projects across ITSM, CSM, HRSD, SecOps, and more.", highlight:"5+ years avg. experience" },
+  { t:"Fast Delivery",      d:"Agile delivery methodology ensures faster time-to-value without sacrificing quality. We work in sprints, deliver early, and iterate quickly to meet your deadlines.", highlight:"30% faster than industry avg." },
+  { t:"Affordable Pricing", d:"Competitive, transparent pricing for businesses of all sizes — no hidden costs, no surprises. We offer flexible engagement models from fixed-price to time & material.", highlight:"Flexible engagement models" },
+  { t:"24/7 Support",       d:"Round-the-clock support so your ServiceNow platform never sleeps. Our dedicated support team is always on call — critical incidents are resolved within the hour.", highlight:"< 1hr critical response time" },
+  { t:"Custom Solutions",   d:"No templates, no copy-paste implementations. Every engagement begins with deep discovery. We tailor every workflow, integration, and UI to your exact business context.", highlight:"100% tailored implementations" },
+  { t:"Global Vision",      d:"Born in India — built to serve clients across the globe. We combine local understanding with international delivery standards and best practices.", highlight:"Clients across 5+ countries" },
 ];
 
 const NAV = ["Home","About","Services","Team","Contact"];
 
 /* ── Custom Multi-Select Dropdown ── */
-const ModuleDropdown = () => {
+const ModuleDropdown = ({ selected, setSelected }) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -110,7 +124,6 @@ const ModuleDropdown = () => {
 
   return (
     <div ref={ref} className="relative">
-      {/* Trigger */}
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -149,7 +162,6 @@ const ModuleDropdown = () => {
         </div>
       </button>
 
-      {/* Dropdown panel */}
       {open && (
         <div style={{
           position:"absolute", top:"calc(100% + 6px)", left:0, right:0, zIndex:50,
@@ -157,7 +169,6 @@ const ModuleDropdown = () => {
           overflow:"hidden", boxShadow:"0 16px 48px rgba(0,0,0,0.4)",
           maxHeight:"320px", overflowY:"auto",
         }}>
-          {/* Select all / clear */}
           <div style={{padding:"8px 14px", borderBottom:"1px solid rgba(255,255,255,0.06)", display:"flex", gap:"10px"}}>
             <button type="button" onClick={() => setSelected([...SERVICES])}
               style={{background:"none", border:"none", color:"rgba(255,255,255,0.4)", fontSize:"11px", cursor:"pointer", fontFamily:"'Outfit',sans-serif", padding:0}}>
@@ -187,7 +198,6 @@ const ModuleDropdown = () => {
                 onMouseEnter={e => { if (!checked) e.currentTarget.style.background="rgba(255,255,255,0.03)"; }}
                 onMouseLeave={e => { if (!checked) e.currentTarget.style.background="transparent"; }}
               >
-                {/* Checkbox */}
                 <div style={{
                   width:"16px", height:"16px", borderRadius:"4px", flexShrink:0,
                   border: checked ? "none" : "1.5px solid rgba(255,255,255,0.2)",
@@ -197,7 +207,6 @@ const ModuleDropdown = () => {
                 }}>
                   {checked && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>}
                 </div>
-
                 <span style={{
                   padding:"2px 8px", borderRadius:"6px",
                   background: checked ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.07)",
@@ -205,7 +214,6 @@ const ModuleDropdown = () => {
                   fontSize:"11px", fontFamily:"monospace", fontWeight:"700", flexShrink:0,
                   letterSpacing:".03em",
                 }}>{s.code}</span>
-
                 <div style={{flex:1, minWidth:0}}>
                   <div style={{color: checked ? "#fff" : "rgba(255,255,255,0.75)", fontSize:"13px", fontWeight:"500", fontFamily:"'Outfit',sans-serif"}}>{s.name}</div>
                   <div style={{color:"rgba(255,255,255,.25)", fontSize:"11px", fontFamily:"'Outfit',sans-serif", marginTop:"1px", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>{s.desc}</div>
@@ -224,7 +232,39 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeIdx, setActiveIdx]   = useState(null);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [hoveredMember, setHoveredMember] = useState(null);
+
+  // Contact form state
+  const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", message: "" });
+  const [formModules, setFormModules] = useState([]);
+  const [formStatus, setFormStatus] = useState("idle"); // idle | sending | success | error
+
+  const handleFormChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSendMessage = async () => {
+    if (!formData.firstName || !formData.email) {
+      setFormStatus("error_validation");
+      return;
+    }
+    setFormStatus("sending");
+    try {
+      await addDoc(collection(db, "contacts"), {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        modules: formModules.map(m => m.code),
+        message: formData.message,
+        submittedAt: serverTimestamp(),
+      });
+      setFormStatus("success");
+      setFormData({ firstName: "", lastName: "", email: "", message: "" });
+      setFormModules([]);
+    } catch (err) {
+      console.error("Firestore error:", err);
+      setFormStatus("error");
+    }
+  };
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
@@ -345,14 +385,14 @@ export default function App() {
       `}</style>
 
       {/* ══════════════════════════════════════
-          NAV — White background, black text
+          NAV — flush logo to far left
       ══════════════════════════════════════ */}
       <header className={`fixed top-0 left-0 right-0 z-50 nav-wrap transition-all duration-300 ${scrolled ? "shadow-sm" : ""}`}>
-        <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-18">
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-18" style={{paddingLeft: "0px", paddingRight: "40px"}}>
 
-          {/* Logo — left corner */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center">
+          {/* Logo — flush to far left, no left padding */}
+          <div className="flex items-center gap-3" style={{paddingLeft: "0px"}}>
+            <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center" style={{borderRadius: "0 0 12px 0", marginLeft: "0"}}>
               <span className="text-white font-bebas text-lg leading-none">N</span>
             </div>
             <span className="font-display font-black text-xl text-black tracking-tight leading-none">NexusHub</span>
@@ -389,14 +429,14 @@ export default function App() {
       </header>
 
       {/* ══════════════════════════════════════
-          1. HERO — GREY bg, black text
+          1. HERO — buttons moved up, no overlap
       ══════════════════════════════════════ */}
       <section id="home" className="sec-hero dot-grid-light relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-10 w-full relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-0">
 
             {/* ── LEFT — content ── */}
-            <div className="flex-1 lg:pr-10">
+            <div className="flex-1 lg:pr-10 pb-16 lg:pb-0">
               <Reveal delay={0.05}>
                 <div className="hero-tag mb-6">Leading ServiceNow Firm</div>
               </Reveal>
@@ -404,17 +444,18 @@ export default function App() {
                 <h1 className="font-bebas text-[clamp(3.5rem,9vw,8rem)] leading-none tracking-wide text-black mb-2">
                   Where Connections
                 </h1>
-                <h1 className="font-display italic text-[clamp(2.5rem,6vw,5.5rem)] leading-none text-black mb-6">
+                <h1 className="font-display italic text-[clamp(2.5rem,6vw,5.5rem)] leading-none text-black mb-5">
                   Power Solutions
                 </h1>
               </Reveal>
               <Reveal delay={0.25}>
-                <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-8">
+                <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-6">
                   A next-generation ServiceNow consulting firm helping businesses unlock the full power of the platform through expert implementation, support, and optimization.
                 </p>
               </Reveal>
+              {/* Buttons pulled up with reduced margin so they don't overlap next section */}
               <Reveal delay={0.32}>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4 mb-10">
                   <button onClick={() => go("Services")} className="btn-dark">Explore Services →</button>
                   <button onClick={() => go("About")} className="btn-ghost-dark">Our Story</button>
                 </div>
@@ -422,16 +463,16 @@ export default function App() {
             </div>
 
             {/* ── RIGHT — Lottie animation + floating ServiceNow badge ── */}
-            <div className="flex-1 flex items-center justify-end w-full" style={{minHeight:"580px", position:"relative"}}>
+            <div className="flex-1 flex items-center justify-end w-full" style={{minHeight:"520px", position:"relative"}}>
               <lottie-player
                 src="https://assets2.lottiefiles.com/packages/lf20_iorpbol0.json"
                 background="transparent"
                 speed="1"
-                style={{width:"110%", height:"650px", marginRight:"-40px"}}
+                style={{width:"110%", height:"600px", marginRight:"-40px"}}
                 loop
                 autoplay
               />
-              {/* Floating ServiceNow badge — isometric tilt matching animation */}
+              {/* Floating ServiceNow badge */}
               <div style={{
                 position:"absolute",
                 bottom:"22%",
@@ -443,32 +484,20 @@ export default function App() {
               }}>
                 <div style={{position:"relative", width:"58px", height:"58px"}}>
                   <div style={{
-                    position:"absolute",
-                    top:"6px", left:"6px",
-                    width:"58px", height:"58px",
-                    background:"#1a6644",
-                    borderRadius:"13px",
-                    transform:"skewY(-4deg)",
+                    position:"absolute", top:"6px", left:"6px",
+                    width:"58px", height:"58px", background:"#1a6644",
+                    borderRadius:"13px", transform:"skewY(-4deg)",
                   }} />
                   <div style={{
-                    position:"absolute",
-                    top:"3px", left:"3px",
-                    width:"58px", height:"58px",
-                    background:"#1d7a4f",
-                    borderRadius:"13px",
-                    transform:"skewY(-2deg)",
+                    position:"absolute", top:"3px", left:"3px",
+                    width:"58px", height:"58px", background:"#1d7a4f",
+                    borderRadius:"13px", transform:"skewY(-2deg)",
                   }} />
                   <div style={{
-                    position:"absolute",
-                    top:"0px", left:"0px",
-                    width:"58px", height:"58px",
-                    background:"#29c47a",
-                    borderRadius:"13px",
-                    display:"flex",
-                    alignItems:"center",
-                    justifyContent:"center",
-                    flexDirection:"column",
-                    gap:"1px",
+                    position:"absolute", top:"0px", left:"0px",
+                    width:"58px", height:"58px", background:"#29c47a",
+                    borderRadius:"13px", display:"flex", alignItems:"center",
+                    justifyContent:"center", flexDirection:"column", gap:"1px",
                   }}>
                     <span style={{color:"#fff", fontSize:"10px", fontWeight:"900", fontFamily:"'Bebas Neue','Outfit',sans-serif", letterSpacing:".05em", lineHeight:1, textShadow:"0 1px 2px rgba(0,0,0,0.2)"}}>Service</span>
                     <span style={{color:"#fff", fontSize:"10px", fontWeight:"900", fontFamily:"'Bebas Neue','Outfit',sans-serif", letterSpacing:".05em", lineHeight:1, textShadow:"0 1px 2px rgba(0,0,0,0.2)"}}>Now</span>
@@ -482,12 +511,11 @@ export default function App() {
                 }
               `}</style>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Marquee — DARK (grey → black) */}
+      {/* Marquee — DARK */}
       <div className="marquee-wrap-dark py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("ITSM · CSM · FSM · HRSD · ITAM · ITOM · SecOps · GRC · SAM · SOM · ServiceNow · Nexus Hub · ").join("")}
@@ -540,7 +568,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Marquee — LIGHT (black → grey) */}
+      {/* Marquee — LIGHT */}
       <div className="marquee-wrap-light py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("ITSM · CSM · FSM · HRSD · ITAM · ITOM · SecOps · GRC · SAM · SOM · ServiceNow · Nexus Hub · ").join("")}
@@ -548,7 +576,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          3. SERVICES — GREY bg, black text
+          3. SERVICES — GREY bg
       ══════════════════════════════════════ */}
       <section id="services" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -585,7 +613,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Marquee — DARK (grey → black) */}
+      {/* Marquee — DARK */}
       <div className="marquee-wrap-dark py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("Experienced Team · Fast Delivery · Affordable · 24/7 Support · Custom Solutions · Global Vision · ").join("")}
@@ -593,7 +621,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          4. WHY US — BLACK bg, white text
+          4. WHY US — BLACK bg, NO icons
       ══════════════════════════════════════ */}
       <section className="sec-black py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -608,7 +636,10 @@ export default function App() {
             {WHY.map((w, i) => (
               <Reveal key={w.t} delay={i * 0.08}>
                 <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
-                  <div style={{fontSize:"2rem", marginBottom:"14px", lineHeight:1}}>{w.icon}</div>
+                  {/* Number instead of icon */}
+                  <div style={{fontSize:"11px", fontFamily:"monospace", color:"rgba(255,255,255,0.2)", fontWeight:"700", letterSpacing:".1em", marginBottom:"16px"}}>
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
@@ -623,7 +654,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Marquee — LIGHT (black → grey) */}
+      {/* Marquee — LIGHT */}
       <div className="marquee-wrap-light py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("Experienced Team · Fast Delivery · Affordable · 24/7 Support · Custom Solutions · Global Vision · ").join("")}
@@ -631,7 +662,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          5. TEAM — GREY bg, black text
+          5. TEAM — GREY bg, Gokul: Co-Founder & CTO
       ══════════════════════════════════════ */}
       <section id="team" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -644,7 +675,6 @@ export default function App() {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-6 items-stretch">
-            {/* Cards column */}
             <div className={`flex flex-col gap-4 transition-all duration-500 ${selectedMember ? "lg:w-[340px] shrink-0" : "w-full grid grid-cols-1 md:grid-cols-3"}`}
               style={selectedMember ? {} : {display:"grid"}}>
               {TEAM.map((m, i) => (
@@ -666,14 +696,12 @@ export default function App() {
                     </div>
                     <div className="line-deco-dark mb-3" />
                     <p className="font-body text-black/45 text-sm leading-relaxed">{m.desc}</p>
-                    {/* Hover hint */}
                     <div className="team-card-hover-hint">Click to know about {m.name}</div>
                   </div>
                 </Reveal>
               ))}
             </div>
 
-            {/* Detail panel */}
             {selectedMember && (
               <div className="member-panel entered flex-1 min-w-0 flex flex-col" style={{background:"#111", borderRadius:"16px", overflow:"hidden"}}>
                 <div style={{padding:"22px 22px 18px 22px", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0}}>
@@ -688,9 +716,7 @@ export default function App() {
                     onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,0.06)"; e.currentTarget.style.color="rgba(255,255,255,0.5)"; }}
                   >×</button>
                 </div>
-
                 <div style={{display:"flex", flex:1, minHeight:0, overflow:"hidden"}}>
-                  {/* LEFT — info */}
                   <div style={{flex:1, minWidth:0, padding:"22px 24px", overflowY:"auto", display:"flex", flexDirection:"column", gap:"20px"}}>
                     <div style={{display:"flex", gap:"20px", flexWrap:"wrap"}}>
                       <div>
@@ -724,8 +750,6 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-
-                  {/* RIGHT — photo */}
                   <div style={{width:"320px", flexShrink:0, overflow:"hidden", borderLeft:"1px solid rgba(255,255,255,0.06)"}}>
                     {selectedMember.photo ? (
                       <img src={selectedMember.photo} alt={selectedMember.name}
@@ -743,7 +767,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Marquee — DARK (grey → black) */}
+      {/* Marquee — DARK */}
       <div className="marquee-wrap-dark py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · India · Global Vision · Nexus Hub · ").join("")}
@@ -751,7 +775,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          6. CTA — BLACK bg, white text
+          6. CTA — BLACK bg
       ══════════════════════════════════════ */}
       <section className="sec-black py-20 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
@@ -772,7 +796,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Marquee — LIGHT (black → grey) */}
+      {/* Marquee — LIGHT */}
       <div className="marquee-wrap-light py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · India · Global Vision · Nexus Hub · ").join("")}
@@ -780,7 +804,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          7. CONTACT — GREY bg, black text
+          7. CONTACT — GREY bg
       ══════════════════════════════════════ */}
       <section id="contact" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 md:gap-24 items-start">
@@ -824,39 +848,108 @@ export default function App() {
           <Reveal delay={0.15}>
             <div className="bg-[#d4d4d4] border border-[#b0b0b0] rounded-2xl p-8">
               <h3 className="font-display font-bold text-black text-xl mb-8">Send a Message</h3>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="font-body text-black/40 text-xs mb-2 block">First Name</label>
-                    <input className="ci" placeholder="Arjun" />
+
+              {/* Success state */}
+              {formStatus === "success" ? (
+                <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"16px", padding:"48px 24px", textAlign:"center"}}>
+                  <div style={{width:"56px", height:"56px", borderRadius:"50%", background:"#111", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
                   <div>
-                    <label className="font-body text-black/40 text-xs mb-2 block">Last Name</label>
-                    <input className="ci" placeholder="Kumar" />
+                    <div className="font-display font-bold text-black text-xl mb-2">Message Sent!</div>
+                    <p className="font-body text-black/50 text-sm">We'll get back to you within one business day.</p>
                   </div>
+                  <button
+                    onClick={() => setFormStatus("idle")}
+                    className="btn-ghost-dark"
+                    style={{marginTop:"8px", padding:"10px 24px", fontSize:"13px"}}
+                  >Send Another →</button>
                 </div>
-                <div>
-                  <label className="font-body text-black/40 text-xs mb-2 block">Email Address</label>
-                  <input className="ci" placeholder="arjun@company.com" />
+              ) : (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="font-body text-black/40 text-xs mb-2 block">First Name *</label>
+                      <input
+                        className="ci"
+                        placeholder="Arjun"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleFormChange}
+                        style={formStatus === "error_validation" && !formData.firstName ? {borderColor:"#c00"} : {}}
+                      />
+                    </div>
+                    <div>
+                      <label className="font-body text-black/40 text-xs mb-2 block">Last Name</label>
+                      <input
+                        className="ci"
+                        placeholder="Kumar"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleFormChange}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="font-body text-black/40 text-xs mb-2 block">Email Address *</label>
+                    <input
+                      className="ci"
+                      placeholder="arjun@company.com"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      style={formStatus === "error_validation" && !formData.email ? {borderColor:"#c00"} : {}}
+                    />
+                  </div>
+                  <div>
+                    <label className="font-body text-black/40 text-xs mb-2 block">Module of Interest</label>
+                    <ModuleDropdown selected={formModules} setSelected={setFormModules} />
+                  </div>
+                  <div>
+                    <label className="font-body text-black/40 text-xs mb-2 block">Message</label>
+                    <textarea
+                      className="ci resize-none"
+                      rows={4}
+                      placeholder="Tell us about your project..."
+                      name="message"
+                      value={formData.message}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+
+                  {/* Validation / error messages */}
+                  {formStatus === "error_validation" && (
+                    <p style={{color:"#c00", fontSize:"12px", fontFamily:"'Outfit',sans-serif"}}>Please fill in your first name and email.</p>
+                  )}
+                  {formStatus === "error" && (
+                    <p style={{color:"#c00", fontSize:"12px", fontFamily:"'Outfit',sans-serif"}}>Something went wrong. Please try again.</p>
+                  )}
+
+                  <button
+                    onClick={handleSendMessage}
+                    disabled={formStatus === "sending"}
+                    className="btn-dark w-full text-center font-body"
+                    style={{opacity: formStatus === "sending" ? 0.6 : 1, cursor: formStatus === "sending" ? "not-allowed" : "pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px"}}
+                  >
+                    {formStatus === "sending" ? (
+                      <>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                          style={{animation:"spin 0.8s linear infinite"}}>
+                          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : "Send Message →"}
+                  </button>
+                  <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 </div>
-                <div>
-                  <label className="font-body text-black/40 text-xs mb-2 block">Module of Interest</label>
-                  <ModuleDropdown />
-                </div>
-                <div>
-                  <label className="font-body text-black/40 text-xs mb-2 block">Message</label>
-                  <textarea className="ci resize-none" rows={4} placeholder="Tell us about your project..." />
-                </div>
-                <button className="btn-dark w-full text-center font-body">Send Message →</button>
-              </div>
+              )}
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          FOOTER — BLACK
-      ══════════════════════════════════════ */}
+      {/* FOOTER */}
       <footer className="footer-wrap py-10 px-6 md:px-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
