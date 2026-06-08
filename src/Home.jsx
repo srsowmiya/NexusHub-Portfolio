@@ -22,42 +22,54 @@ const Reveal = ({ children, delay = 0, y = 36, className = "" }) => {
   );
 };
 
-const Counter = ({ end, suffix = "" }) => {
-  const [n, setN] = useState(0);
-  const [ref, inView] = useInView();
-  useEffect(() => {
-    if (!inView) return;
-    let s = 0; const step = end / 80;
-    const t = setInterval(() => { s += step; if (s >= end) { setN(end); clearInterval(t); } else setN(Math.floor(s)); }, 20);
-    return () => clearInterval(t);
-  }, [inView]);
-  return <span ref={ref}>{n}{suffix}</span>;
-};
-
 const SERVICES = [
-  { code: "ITSM",   name: "IT Service Management",       desc: "Incident, Problem, Change & Request Management",          num: "01" },
-  { code: "CSM",    name: "Customer Service Management",  desc: "Omnichannel customer support & case management",          num: "02" },
-  { code: "FSM",    name: "Field Service Management",     desc: "Work orders, scheduling & field team optimization",       num: "03" },
-  { code: "HRSD",   name: "HR Service Delivery",          desc: "Employee onboarding, offboarding & HR workflows",         num: "04" },
-  { code: "ITAM",   name: "IT Asset Management",          desc: "Full asset lifecycle management",                         num: "05" },
-  { code: "ITOM",   name: "IT Operations Management",     desc: "Infrastructure discovery, health & event management",     num: "06" },
-  { code: "SecOps", name: "Security Operations",          desc: "Vulnerability response & security incident management",   num: "07" },
-  { code: "GRC",    name: "Governance, Risk & Compliance",desc: "Risk management, audit & policy compliance",              num: "08" },
-  { code: "SAM",    name: "Software Asset Management",    desc: "License management, compliance & cost control",           num: "09" },
-  { code: "HAM",    name: "Hardware Asset Management",    desc: "Hardware tracking, lifecycle & compliance",               num: "10" },
-  { code: "SOM",    name: "Service Operations Management",desc: "End-to-end service operations visibility",                num: "11" },
+  { code: "ITSM",   name: "IT Service Management",        desc: "Incident, Problem, Change & Request Management",         num: "01" },
+  { code: "CSM",    name: "Customer Service Management",   desc: "Omnichannel customer support & case management",         num: "02" },
+  { code: "FSM",    name: "Field Service Management",      desc: "Work orders, scheduling & field team optimization",      num: "03" },
+  { code: "HRSD",   name: "HR Service Delivery",           desc: "Employee onboarding, offboarding & HR workflows",        num: "04" },
+  { code: "ITAM",   name: "IT Asset Management",           desc: "Full asset lifecycle management",                        num: "05" },
+  { code: "ITOM",   name: "IT Operations Management",      desc: "Infrastructure discovery, health & event management",    num: "06" },
+  { code: "SecOps", name: "Security Operations",           desc: "Vulnerability response & security incident management",  num: "07" },
+  { code: "GRC",    name: "Governance, Risk & Compliance", desc: "Risk management, audit & policy compliance",             num: "08" },
+  { code: "SAM",    name: "Software Asset Management",     desc: "License management, compliance & cost control",          num: "09" },
+  { code: "HAM",    name: "Hardware Asset Management",     desc: "Hardware tracking, lifecycle & compliance",              num: "10" },
+  { code: "SOM",    name: "Service Operations Management", desc: "End-to-end service operations visibility",               num: "11" },
 ];
 
 const TEAM = [
-  { name: "Hari",      role: "Co-Founder & CEO",       desc: "Visionary leader and ServiceNow strategist driving the mission and growth of Nexus Hub.", initials: "H" },
-  { name: "Gokul",     role: "Co-Founder & CTO",       desc: "Technical expert across ServiceNow modules, platform architecture, and enterprise integrations.", initials: "G" },
-  { name: "Priya Raj", role: "Head of Operations",     desc: "Ensures seamless project delivery and exceptional client experience at every touchpoint.", initials: "PR" },
-];
-
-const REVIEWS = [
-  { name: "Arjun Kumar", co: "TechBridge India",      role: "CEO",         q: "Nexus Hub transformed how our company manages IT. Their ITSM implementation was flawless and the team was incredibly responsive throughout." },
-  { name: "Sunita Rao",  co: "Pinnacle Enterprises",  role: "COO",         q: "From HRSD to SecOps, Nexus Hub handled everything with precision. What impressed us most was how deeply they understood our business." },
-  { name: "Vijay Mohan", co: "GlobalEdge Corp",       role: "IT Director", q: "Their 24/7 support is worth every rupee. We had a critical ServiceNow incident at 2AM and the Nexus Hub team resolved it within the hour." },
+  {
+    name: "Hari",
+    role: "Co-Founder & CEO",
+    initials: "H",
+    desc: "Visionary leader and ServiceNow strategist driving the mission and growth of Nexus Hub.",
+    experience: "8+ Years",
+    location: "Coimbatore, Tamil Nadu",
+    expertise: ["ServiceNow Strategy", "Business Development", "Enterprise Architecture", "Digital Transformation"],
+    about: "Hari is the driving force behind Nexus Hub Global Solutions. With over 8 years of experience in the ServiceNow ecosystem, he has led end-to-end implementations for enterprise clients across India and internationally. His vision is to make Nexus Hub the go-to ServiceNow partner for businesses seeking reliable, tailored, and scalable solutions.",
+    modules: ["ITSM", "CSM", "HRSD", "GRC"],
+  },
+  {
+    name: "Gokul",
+    role: "Co-Founder & CTO",
+    initials: "G",
+    desc: "Technical expert across ServiceNow modules, platform architecture, and enterprise integrations.",
+    experience: "7+ Years",
+    location: "Coimbatore, Tamil Nadu",
+    expertise: ["Platform Architecture", "API Integrations", "ServiceNow Development", "SecOps & ITOM"],
+    about: "Gokul is the technical backbone of Nexus Hub. He specializes in deep ServiceNow platform customization, complex enterprise integrations, and building scalable architectures. His hands-on experience across 11+ modules ensures every implementation is built to last.",
+    modules: ["ITOM", "SecOps", "SAM", "HAM", "ITAM"],
+  },
+  {
+    name: "Priya Raj",
+    role: "Head of Operations",
+    initials: "PR",
+    desc: "Ensures seamless project delivery and exceptional client experience at every touchpoint.",
+    experience: "6+ Years",
+    location: "Coimbatore, Tamil Nadu",
+    expertise: ["Project Management", "Client Relations", "Agile Delivery", "Quality Assurance"],
+    about: "Priya Raj oversees the operational engine of Nexus Hub. She ensures every project is delivered on time, within scope, and to the highest quality standards. Her client-first mindset and process discipline have been key to the company's 100% satisfaction record.",
+    modules: ["FSM", "HRSD", "SOM", "CSM"],
+  },
 ];
 
 const WHY = [
@@ -69,12 +81,85 @@ const WHY = [
   { n:"06", t:"Global Vision",      d:"Born in Tamil Nadu, India — built to serve clients across the globe." },
 ];
 
-const NAV = ["Home","About","Services","Team","Reviews","Contact"];
+const NAV = ["Home","About","Services","Team","Contact"];
+
+/* ── Custom Dropdown ── */
+const ModuleDropdown = () => {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="ci w-full text-left flex items-center justify-between"
+        style={{cursor:"pointer"}}
+      >
+        <span style={{color: selected ? "#111" : "#777", fontSize:"14px"}}>
+          {selected ? `${selected.code} — ${selected.name}` : "Select a module..."}
+        </span>
+        <svg
+          width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" strokeWidth="2"
+          style={{transition:"transform .25s", transform: open ? "rotate(180deg)" : "rotate(0deg)", flexShrink:0}}
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      {open && (
+        <div style={{
+          position:"absolute", top:"calc(100% + 6px)", left:0, right:0, zIndex:50,
+          background:"#1a1a1a", border:"1.5px solid #333", borderRadius:"12px",
+          overflow:"hidden", boxShadow:"0 16px 48px rgba(0,0,0,0.4)",
+          maxHeight:"320px", overflowY:"auto",
+        }}>
+          {SERVICES.map((s) => (
+            <button
+              key={s.code}
+              type="button"
+              onClick={() => { setSelected(s); setOpen(false); }}
+              style={{
+                display:"flex", alignItems:"center", gap:"14px", width:"100%",
+                padding:"12px 16px", background: selected?.code === s.code ? "#2a2a2a" : "transparent",
+                border:"none", cursor:"pointer", textAlign:"left",
+                borderBottom:"1px solid rgba(255,255,255,0.05)",
+                transition:"background .15s",
+              }}
+              onMouseEnter={e => { if (selected?.code !== s.code) e.currentTarget.style.background="#222"; }}
+              onMouseLeave={e => { if (selected?.code !== s.code) e.currentTarget.style.background="transparent"; }}
+            >
+              <span style={{
+                padding:"3px 8px", borderRadius:"6px", background:"rgba(255,255,255,0.08)",
+                color:"rgba(255,255,255,0.7)", fontSize:"11px", fontFamily:"monospace",
+                fontWeight:"600", letterSpacing:".04em", flexShrink:0,
+              }}>{s.code}</span>
+              <div>
+                <div style={{color:"#fff", fontSize:"13px", fontWeight:"500", fontFamily:"'Outfit',sans-serif"}}>{s.name}</div>
+                <div style={{color:"rgba(255,255,255,.3)", fontSize:"11px", fontFamily:"'Outfit',sans-serif", marginTop:"2px"}}>{s.desc}</div>
+              </div>
+              {selected?.code === s.code && (
+                <svg style={{marginLeft:"auto",flexShrink:0}} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function App() {
-  const [scrolled, setScrolled]   = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeIdx, setActiveIdx]  = useState(null);
+  const [activeIdx, setActiveIdx]   = useState(null);
+  const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
@@ -85,6 +170,10 @@ export default function App() {
   const go = (id) => {
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
+  };
+
+  const handleMemberClick = (m) => {
+    setSelectedMember(prev => prev?.name === m.name ? null : m);
   };
 
   return (
@@ -114,76 +203,71 @@ export default function App() {
         .btn-ghost-light { background:transparent; color:#fff; padding:13px 30px; border-radius:8px; font-weight:500; font-size:14px; border:1.5px solid rgba(255,255,255,.3); cursor:pointer; transition:border-color .2s; display:inline-block; }
         .btn-ghost-light:hover { border-color:#fff; }
 
-        /* ── HERO (grey bg) ── */
+        /* ── GREY sections ── */
         .sec-hero    { background:#C8C8C8; }
-        .sec-hero *  { color:#111; }
         .hero-tag    { display:inline-flex; align-items:center; gap:8px; background:#d8d8d8; border:1px solid #b0b0b0; border-radius:999px; padding:7px 18px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#333; }
-        .live-dot    { width:7px; height:7px; background:#22c55e; border-radius:50%; animation:livepulse 2s ease-in-out infinite; }
-        @keyframes livepulse { 0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,.3)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,.08)} }
-        .stat-val    { font-family:'Bebas Neue',sans-serif; font-size:52px; letter-spacing:.04em; color:#111; line-height:1; }
-        .stat-lbl    { color:#555; font-size:13px; margin-top:4px; }
         .hero-divider{ height:1px; background:linear-gradient(90deg,transparent,#999,transparent); }
         .dot-grid-light { background-image:radial-gradient(#aaa 1px,transparent 1px); background-size:26px 26px; }
+
+        /* ── BUTTONS always enforce their own text color ── */
+        .btn-dark, .btn-dark:hover, .btn-dark:focus  { color:#fff !important; }
+        .btn-ghost-dark, .btn-ghost-dark:hover       { color:#111 !important; }
+        .btn-light, .btn-light:hover                 { color:#111 !important; }
+        .btn-ghost-light, .btn-ghost-light:hover     { color:#fff !important; }
+
+        /* ── Service code badges always white text ── */
+        .svc-badge { background:#111; color:#fff !important; padding:3px 10px; border-radius:999px; font-size:11px; font-family:monospace; font-weight:700; letter-spacing:.04em; display:inline-block; }
 
         /* ── MARQUEE ── */
         .marquee-wrap-dark  { background:#111; border-top:1px solid #222; border-bottom:1px solid #222; }
         .marquee-wrap-light { background:#C8C8C8; border-top:1px solid #b0b0b0; border-bottom:1px solid #b0b0b0; }
+        /* text inside dark marquee = light grey, inside light marquee = dark */
+        .marquee-wrap-dark  .marquee-text { color:rgba(255,255,255,0.35) !important; }
+        .marquee-wrap-light .marquee-text { color:rgba(0,0,0,0.7) !important; }
         .marquee { animation:marquee 24s linear infinite; white-space:nowrap; display:inline-block; }
         @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
         /* ── BLACK sections ── */
         .sec-black   { background:#111; }
 
-        /* ── SERVICE rows (black bg) ── */
-        .srv-row { border-bottom:1px solid rgba(255,255,255,.07); transition:background .2s; cursor:pointer; }
-        .srv-row:hover { background:rgba(255,255,255,.04); }
-        .srv-row:hover .srv-arr { opacity:1; transform:translateX(0); color:#fff; }
-        .srv-arr { opacity:0; transform:translateX(-10px); transition:all .25s; }
-        .srv-row:hover .srv-code { color:#fff; }
-        .srv-code { color:rgba(255,255,255,.2); transition:color .25s; font-size:11px; font-family:'Outfit',monospace; }
+        /* ── ABOUT accordions ── */
+        .about-accordion { border:1.5px solid #222; border-radius:14px; padding:22px 24px; background:#1a1a1a; cursor:pointer; transition:border-color .2s, background .2s; }
+        .about-accordion:hover { border-color:#fff; background:#222; }
 
-        /* ── WHY cards (grey bg) ── */
-        .why-card { border:1px solid #b0b0b0; border-radius:16px; padding:32px; background:#d4d4d4; transition:border-color .25s, box-shadow .25s, transform .25s; }
-        .why-card:hover { border-color:#111; box-shadow:0 8px 32px rgba(0,0,0,.15); transform:translateY(-3px); }
-        .why-num { font-family:'Bebas Neue',sans-serif; font-size:52px; color:#e8e8e8; line-height:1; }
-        .why-card:hover .why-num { color:#111; }
+        /* ── WHY cards ── */
+        .why-num { font-family:'Bebas Neue',sans-serif; font-size:52px; color:rgba(255,255,255,0.08); line-height:1; }
 
-        /* ── TEAM cards (black bg) ── */
-        .team-card { border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:36px; background:rgba(255,255,255,.02); transition:border-color .3s,transform .3s; }
-        .team-card:hover { border-color:rgba(255,255,255,.3); transform:translateY(-4px); }
-        .initials-ring { width:72px; height:72px; border-radius:50%; border:1.5px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:20px; font-weight:700; background:rgba(255,255,255,.05); color:#fff; }
+        /* ── TEAM ── */
+        .team-card { cursor:pointer; transition: border-color .25s, transform .25s, box-shadow .25s; }
+        .team-card:hover { border-color:#000 !important; box-shadow: 0 8px 28px rgba(0,0,0,0.18); transform:translateY(-3px); }
+        .team-card.active { border-color:#000 !important; box-shadow: 0 0 0 2px #111; }
+        .member-panel { background:#111; border-radius:20px; overflow:hidden; transition: opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1); }
+        .member-panel.entering { opacity:0; transform:translateX(20px); }
+        .member-panel.entered  { opacity:1; transform:translateX(0); }
+        .expertise-tag { display:inline-block; padding:5px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.55); font-size:12px; font-family:'Outfit',sans-serif; }
+        .module-chip { display:inline-block; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,.06); color:rgba(255,255,255,.5); font-size:11px; font-family:monospace; font-weight:600; letter-spacing:.04em; border:1px solid rgba(255,255,255,.08); }
 
-        /* ── REVIEW cards (grey bg) ── */
-        .review-card { border:1px solid #b0b0b0; border-radius:16px; padding:32px; background:#d4d4d4; transition:border-color .25s, box-shadow .25s; }
-        .review-card:hover { border-color:#111; box-shadow:0 6px 24px rgba(0,0,0,.15); }
-
-        /* ── CTA (black bg) ── */
-        .cta-inner { border:1px solid rgba(255,255,255,.1); border-radius:28px; }
-
-        /* ── CONTACT (grey bg) ── */
-        .ci { background:#d8d8d8; border:1.5px solid #aaa; color:#111; width:100%; padding:13px 18px; border-radius:10px; font-size:14px; font-family:'Outfit',sans-serif; transition:border-color .2s; }
-        .ci:focus { outline:none; border-color:#111; background:#ccc; }
-        .ci::placeholder { color:#777; }
-        .contact-card { background:#d4d4d4; border:1px solid #b0b0b0; border-radius:20px; padding:36px; }
-
-        /* ── FOOTER (black) ── */
-        .footer-wrap { background:#111; border-top:1px solid #222; }
-
-        .scroll-bob { animation:scrollBob 2.2s ease-in-out infinite; }
-        @keyframes scrollBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+        /* ── decorators ── */
         .line-deco { width:36px; height:2px; background:#fff; border-radius:2px; }
         .line-deco-dark { width:36px; height:2px; background:#111; border-radius:2px; }
+
+        /* ── CONTACT inputs ── */
+        .ci { background:#d8d8d8; border:1.5px solid #aaa; color:#111; width:100%; padding:13px 18px; border-radius:10px; font-size:14px; font-family:'Outfit',sans-serif; transition:border-color .2s, background .2s; }
+        .ci:focus { outline:none; border-color:#111; background:#ccc; }
+        .ci::placeholder { color:#777; }
+        .ci option { background:#d8d8d8; color:#111; }
+
+        /* scrollbar */
+        ::-webkit-scrollbar { width:4px; }
+        ::-webkit-scrollbar-track { background:#c8c8c8; }
+        ::-webkit-scrollbar-thumb { background:#111; border-radius:2px; }
 
         /* tag variants */
         .tag-dark  { display:inline-block; padding:4px 14px; border-radius:999px; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.5); }
         .tag-light { display:inline-block; padding:4px 14px; border-radius:999px; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border:1px solid #999; color:#444; background:rgba(0,0,0,0.06); }
 
-        .about-accordion { border:1.5px solid #222; border-radius:14px; padding:22px 24px; background:#1a1a1a; cursor:pointer; transition:border-color .2s, background .2s; }
-        .about-accordion:hover { border-color:#fff; background:#222; }
-
-        ::-webkit-scrollbar { width:4px; }
-        ::-webkit-scrollbar-track { background:#c8c8c8; }
-        ::-webkit-scrollbar-thumb { background:#111; border-radius:2px; }
+        /* footer */
+        .footer-wrap { background:#111; border-top:1px solid #1e1e1e; }
       `}</style>
 
       {/* ══════════════════════════════════════
@@ -191,41 +275,27 @@ export default function App() {
       ══════════════════════════════════════ */}
       <header className={`fixed top-0 left-0 right-0 z-50 nav-wrap transition-all duration-300 ${scrolled ? "shadow-sm" : ""}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-18">
-
-          {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center">
               <span className="text-white font-bebas text-lg leading-none">N</span>
             </div>
-            <span className="font-display font-black text-xl text-black tracking-tight leading-none">
-              NexusHub
-            </span>
+            <span className="font-display font-black text-xl text-black tracking-tight leading-none">NexusHub</span>
           </div>
-
-          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
             {NAV.map(l => (
               <button key={l} onClick={() => go(l)} className="nav-link font-body">{l}</button>
             ))}
           </nav>
-
-          {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <div className="hero-tag">
-              <div className="live-dot" />
-              Open for Work
-            </div>
+            <div className="hero-tag">Leading ServiceNow Partner</div>
             <button onClick={() => go("Contact")} className="btn-dark">Let's Talk →</button>
           </div>
-
-          {/* Hamburger */}
           <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
             <div className={`w-5 h-px bg-black mb-1.5 transition-all origin-center ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
             <div className={`w-5 h-px bg-black mb-1.5 transition-all ${mobileOpen ? "opacity-0" : ""}`} />
             <div className={`w-5 h-px bg-black transition-all origin-center ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </div>
-
         {mobileOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-6 py-6 flex flex-col gap-5">
             {NAV.map(l => <button key={l} onClick={() => go(l)} className="text-left text-black/70 hover:text-black text-sm font-medium font-body">{l}</button>)}
@@ -235,17 +305,13 @@ export default function App() {
       </header>
 
       {/* ══════════════════════════════════════
-          HERO — Grey background, black text
+          1. HERO — GREY bg, black text
       ══════════════════════════════════════ */}
       <section id="home" className="sec-hero dot-grid-light relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-10 w-full relative z-10">
           <Reveal delay={0.05}>
-            <div className="hero-tag mb-8">
-              <div className="live-dot" />
-              Tamil Nadu's Leading ServiceNow Partner
-            </div>
+            <div className="hero-tag mb-8">Leading ServiceNow Partner</div>
           </Reveal>
-
           <Reveal delay={0.15}>
             <h1 className="font-bebas text-[clamp(4rem,11vw,9.5rem)] leading-none tracking-wide text-black mb-2">
               Where Connections
@@ -254,54 +320,29 @@ export default function App() {
               Power Solutions
             </h1>
           </Reveal>
-
           <Reveal delay={0.25}>
             <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-12">
               A next-generation ServiceNow consulting firm helping businesses unlock the full power of the platform through expert implementation, support, and optimization.
             </p>
           </Reveal>
-
           <Reveal delay={0.32}>
             <div className="flex flex-wrap gap-4 mb-20">
               <button onClick={() => go("Services")} className="btn-dark">Explore Services →</button>
               <button onClick={() => go("About")} className="btn-ghost-dark">Our Story</button>
             </div>
           </Reveal>
-
-          <div className="hero-divider mb-14" />
-
-          <Reveal delay={0.4}>
-            <div className="flex flex-wrap gap-12 md:gap-20">
-              {[
-                { val: 11, suf: "+", label: "ServiceNow Modules" },
-                { val: 50, suf: "+", label: "Projects Delivered" },
-                { val: 24, suf: "/7", label: "Support Coverage" },
-                { val: 100, suf: "%", label: "Client Satisfaction" },
-              ].map((s, i) => (
-                <div key={i}>
-                  <div className="stat-val"><Counter end={s.val} suffix={s.suf} /></div>
-                  <div className="stat-lbl font-body">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 scroll-bob flex flex-col items-center gap-2 text-black/25 text-[10px] uppercase tracking-widest font-body">
-          <div className="w-px h-10 bg-gradient-to-b from-black/20 to-transparent" />
-          Scroll
         </div>
       </section>
 
-      {/* Marquee — dark */}
+      {/* Marquee — DARK (grey → black) */}
       <div className="marquee-wrap-dark py-4 overflow-hidden">
-        <div className="marquee text-white/15 text-sm font-body font-medium tracking-widest uppercase">
+        <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("ITSM · CSM · FSM · HRSD · ITAM · ITOM · SecOps · GRC · SAM · SOM · ServiceNow · Nexus Hub · ").join("")}
         </div>
       </div>
 
       {/* ══════════════════════════════════════
-          ABOUT — Black background, white text
+          2. ABOUT — BLACK bg, white text
       ══════════════════════════════════════ */}
       <section id="about" className="sec-black py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 md:gap-24 items-start">
@@ -321,7 +362,6 @@ export default function App() {
               <button onClick={() => go("Contact")} className="btn-light">Work With Us →</button>
             </Reveal>
           </div>
-
           <div className="space-y-4 pt-4">
             {[
               { num:"01", title:"Mission", body:"Empower organizations with expert ServiceNow consulting that drives efficiency, automation, and sustainable growth — making enterprise-grade technology accessible to every business." },
@@ -347,10 +387,17 @@ export default function App() {
         </div>
       </section>
 
+      {/* Marquee — LIGHT (black → grey) */}
+      <div className="marquee-wrap-light py-4 overflow-hidden">
+        <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
+          {Array(8).fill("ITSM · CSM · FSM · HRSD · ITAM · ITOM · SecOps · GRC · SAM · SOM · ServiceNow · Nexus Hub · ").join("")}
+        </div>
+      </div>
+
       {/* ══════════════════════════════════════
-          SERVICES — Grey background, black text
+          3. SERVICES — GREY bg, black text
       ══════════════════════════════════════ */}
-      <section id="services" className="sec-hero py-32 border-t border-black/8">
+      <section id="services" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
@@ -364,8 +411,6 @@ export default function App() {
               <p className="font-body text-black/40 max-w-xs text-sm leading-relaxed">End-to-end implementation across all major ServiceNow modules</p>
             </Reveal>
           </div>
-
-          {/* Service rows on a white card */}
           <div className="bg-[#d4d4d4] rounded-2xl border border-[#b0b0b0] overflow-hidden">
             {SERVICES.map((s, i) => (
               <Reveal key={s.code} delay={i * 0.03}>
@@ -378,7 +423,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 rounded-full bg-black text-white text-xs font-mono font-600">{s.code}</span>
+                    <span className="svc-badge">{s.code}</span>
                     <span className="text-black/0 group-hover:text-black transition-all text-lg">→</span>
                   </div>
                 </div>
@@ -388,15 +433,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* Marquee — light */}
-      <div className="marquee-wrap-light py-4 overflow-hidden">
-        <div className="marquee text-black/20 text-sm font-body font-medium tracking-widest uppercase">
+      {/* Marquee — DARK (grey → black) */}
+      <div className="marquee-wrap-dark py-4 overflow-hidden">
+        <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
           {Array(8).fill("Experienced Team · Fast Delivery · Affordable · 24/7 Support · Custom Solutions · Global Vision · ").join("")}
         </div>
       </div>
 
       {/* ══════════════════════════════════════
-          WHY US — Black background, white text
+          4. WHY US — BLACK bg, white text
       ══════════════════════════════════════ */}
       <section className="sec-black py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -411,7 +456,7 @@ export default function App() {
             {WHY.map((w, i) => (
               <Reveal key={w.n} delay={i * 0.08}>
                 <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300">
-                  <div className="font-bebas text-5xl text-white/10 leading-none mb-4">{w.n}</div>
+                  <div className="why-num mb-4">{w.n}</div>
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/35 text-sm leading-relaxed">{w.d}</p>
@@ -422,8 +467,16 @@ export default function App() {
         </div>
       </section>
 
+      {/* Marquee — LIGHT (black → grey) */}
+      <div className="marquee-wrap-light py-4 overflow-hidden">
+        <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
+          {Array(8).fill("Experienced Team · Fast Delivery · Affordable · 24/7 Support · Custom Solutions · Global Vision · ").join("")}
+        </div>
+      </div>
+
       {/* ══════════════════════════════════════
-          TEAM — Grey background, black text
+          5. TEAM — GREY bg, black text
+             Click card → black panel opens right
       ══════════════════════════════════════ */}
       <section id="team" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -434,147 +487,214 @@ export default function App() {
               <h2 className="font-display italic text-[clamp(2rem,4vw,3.5rem)] leading-tight text-black/60">Behind Nexus Hub</h2>
             </Reveal>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TEAM.map((m, i) => (
-              <Reveal key={m.name} delay={i * 0.12}>
-                <div className="bg-[#d4d4d4] border border-[#b0b0b0] rounded-2xl p-8 h-full hover:border-black hover:shadow-lg transition-all duration-300 group">
-                  <div className="w-16 h-16 rounded-full border-2 border-black flex items-center justify-center font-display font-bold text-black text-lg mb-6 bg-gray-50">
-                    {m.initials}
-                  </div>
-                  <h3 className="font-display font-bold text-2xl text-black mb-1">{m.name}</h3>
-                  <div className="font-body text-black/50 text-sm font-semibold mb-4">{m.role}</div>
-                  <div className="line-deco-dark mb-4" />
-                  <p className="font-body text-black/45 text-sm leading-relaxed">{m.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ══════════════════════════════════════
-          REVIEWS — Black background, white text
-      ══════════════════════════════════════ */}
-      <section id="reviews" className="sec-black py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="mb-16">
-            <Reveal><div className="tag-dark mb-4">Testimonials</div></Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="font-bebas text-[clamp(3rem,6vw,5.5rem)] leading-none tracking-wide text-white">What Our</h2>
-              <h2 className="font-display italic text-[clamp(2rem,4vw,3.5rem)] leading-tight text-white/70">Clients Say</h2>
-            </Reveal>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {REVIEWS.map((r, i) => (
-              <Reveal key={r.name} delay={i * 0.12}>
-                <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 transition-all duration-300">
-                  <div className="flex gap-0.5 mb-6">
-                    {Array.from({length:5}).map((_,j) => <span key={j} className="text-white text-base">★</span>)}
+          {/* Cards row + detail panel */}
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Cards column */}
+            <div className={`flex flex-col gap-4 transition-all duration-500 ${selectedMember ? "lg:w-[340px] shrink-0" : "w-full grid grid-cols-1 md:grid-cols-3"}`}
+              style={selectedMember ? {} : {display:"grid"}}>
+              {TEAM.map((m, i) => (
+                <Reveal key={m.name} delay={i * 0.1}>
+                  <div
+                    onClick={() => handleMemberClick(m)}
+                    className={`team-card bg-[#d4d4d4] border border-[#b0b0b0] rounded-2xl p-7 h-full ${selectedMember?.name === m.name ? "active" : ""}`}
+                    style={{cursor:"pointer"}}
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-14 h-14 rounded-full border-2 border-black flex items-center justify-center font-display font-bold text-black text-base bg-[#c8c8c8] shrink-0">
+                        {m.initials}
+                      </div>
+                      <div>
+                        <h3 className="font-display font-bold text-xl text-black">{m.name}</h3>
+                        <div className="font-body text-black/50 text-sm font-semibold">{m.role}</div>
+                      </div>
+                      <div className="ml-auto text-black/30 text-lg transition-transform duration-300" style={{transform: selectedMember?.name === m.name ? "rotate(45deg)" : "rotate(0)"}}>+</div>
+                    </div>
+                    {!selectedMember && (
+                      <>
+                        <div className="line-deco-dark mb-3" />
+                        <p className="font-body text-black/45 text-sm leading-relaxed">{m.desc}</p>
+                      </>
+                    )}
+                    {selectedMember && (
+                      <p className="font-body text-black/40 text-xs leading-relaxed">{m.desc}</p>
+                    )}
                   </div>
-                  <p className="font-body text-white/50 text-sm leading-relaxed mb-8 italic">"{r.q}"</p>
-                  <div className="border-t border-white/8 pt-6 flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center font-display font-bold text-white text-xs">
-                      {r.name.split(" ").map(n=>n[0]).join("")}
+                </Reveal>
+              ))}
+            </div>
+
+            {/* Detail panel — black bg, white text */}
+            {selectedMember && (
+              <div className="member-panel entered flex-1 min-w-0 p-8 md:p-10" style={{background:"#111"}}>
+                {/* Header */}
+                <div className="flex items-start justify-between mb-8">
+                  <div className="flex items-center gap-5">
+                    <div className="w-16 h-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center font-display font-bold text-white text-xl shrink-0">
+                      {selectedMember.initials}
                     </div>
                     <div>
-                      <div className="font-body font-600 text-white text-sm">{r.name}</div>
-                      <div className="font-body text-white/30 text-xs">{r.role}, {r.co}</div>
+                      <h3 className="font-display font-bold text-white text-2xl mb-1">{selectedMember.name}</h3>
+                      <div className="text-white/45 text-sm font-body">{selectedMember.role}</div>
                     </div>
                   </div>
+                  <button
+                    onClick={() => setSelectedMember(null)}
+                    className="text-white/30 hover:text-white transition-colors text-2xl leading-none font-light mt-1"
+                    style={{background:"none",border:"none",cursor:"pointer"}}
+                  >×</button>
                 </div>
-              </Reveal>
-            ))}
+
+                {/* Meta row */}
+                <div className="flex flex-wrap gap-4 mb-8 pb-8 border-b border-white/8">
+                  <div className="flex items-center gap-2">
+                    <span className="text-white/20 text-xs font-mono uppercase tracking-widest">Experience</span>
+                    <span className="text-white font-body font-600 text-sm">{selectedMember.experience}</span>
+                  </div>
+                  <div className="w-px bg-white/10" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-white/20 text-xs font-mono uppercase tracking-widest">Based in</span>
+                    <span className="text-white font-body font-600 text-sm">{selectedMember.location}</span>
+                  </div>
+                </div>
+
+                {/* About */}
+                <div className="mb-8">
+                  <div className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3">About</div>
+                  <p className="text-white/60 font-body text-sm leading-relaxed">{selectedMember.about}</p>
+                </div>
+
+                {/* Expertise */}
+                <div className="mb-8">
+                  <div className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3">Areas of Expertise</div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedMember.expertise.map(e => (
+                      <span key={e} className="expertise-tag">{e}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Modules */}
+                <div>
+                  <div className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3">Key Modules</div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedMember.modules.map(mod => (
+                      <span key={mod} className="module-chip">{mod}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
+      {/* Marquee — DARK (grey → black) */}
+      <div className="marquee-wrap-dark py-4 overflow-hidden">
+        <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
+          {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · Tamil Nadu · Global Vision · Nexus Hub · ").join("")}
+        </div>
+      </div>
+
       {/* ══════════════════════════════════════
-          CTA — Grey background, black text
+          6. CTA — BLACK bg, white text
       ══════════════════════════════════════ */}
-      <section className="sec-hero py-20 px-6 md:px-10">
+      <section className="sec-black py-20 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="relative rounded-3xl border-2 border-black bg-white p-16 md:p-24 text-center overflow-hidden">
-              <div className="absolute inset-0 dot-grid-light opacity-50" />
+            <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-16 md:p-24 text-center overflow-hidden">
+              <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage:"radial-gradient(#fff 1px,transparent 1px)",backgroundSize:"26px 26px"}} />
               <div className="relative z-10">
-                <div className="tag-light mx-auto mb-6">Ready to start?</div>
-                <h2 className="font-bebas text-[clamp(3rem,7vw,6rem)] leading-none tracking-wide text-black mb-2">Transform Your</h2>
-                <h2 className="font-display italic text-[clamp(2rem,5vw,4.5rem)] leading-tight text-black/70 mb-8">Operations Today</h2>
-                <p className="font-body text-black/40 max-w-md mx-auto mb-10 text-sm leading-relaxed">
+                <div className="tag-dark mx-auto mb-6">Ready to start?</div>
+                <h2 className="font-bebas text-[clamp(3rem,7vw,6rem)] leading-none tracking-wide text-white mb-2">Transform Your</h2>
+                <h2 className="font-display italic text-[clamp(2rem,5vw,4.5rem)] leading-tight text-white/60 mb-8">Operations Today</h2>
+                <p className="font-body text-white/35 max-w-md mx-auto mb-10 text-sm leading-relaxed">
                   Let's talk about how Nexus Hub can unlock the full potential of ServiceNow for your organization.
                 </p>
-                <button onClick={() => go("contact")} className="btn-dark text-base px-10 py-4">Start Your Journey →</button>
+                <button onClick={() => go("contact")} className="btn-light text-base px-10 py-4">Start Your Journey →</button>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
+      {/* Marquee — LIGHT (black → grey) */}
+      <div className="marquee-wrap-light py-4 overflow-hidden">
+        <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
+          {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · Tamil Nadu · Global Vision · Nexus Hub · ").join("")}
+        </div>
+      </div>
+
       {/* ══════════════════════════════════════
-          CONTACT — Black background, white text
+          7. CONTACT — GREY bg, black text
       ══════════════════════════════════════ */}
-      <section id="contact" className="sec-black py-32">
+      <section id="contact" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 md:gap-24 items-start">
           <div>
-            <Reveal><div className="tag-dark mb-6">Contact</div></Reveal>
+            <Reveal><div className="tag-light mb-6">Contact</div></Reveal>
             <Reveal delay={0.1}>
-              <h2 className="font-bebas text-[clamp(3rem,5vw,5rem)] leading-none tracking-wide text-white">Let's Build</h2>
-              <h2 className="font-display italic text-[clamp(2rem,3.5vw,3.2rem)] leading-tight text-white/70 mb-8">Something Great</h2>
+              <h2 className="font-bebas text-[clamp(3rem,5vw,5rem)] leading-none tracking-wide text-black">Let's Build</h2>
+              <h2 className="font-display italic text-[clamp(2rem,3.5vw,3.2rem)] leading-tight text-black/60 mb-8">Something Great</h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="font-body text-white/35 text-sm leading-relaxed mb-12 max-w-sm">Reach out to discuss your ServiceNow needs. Our team responds within one business day.</p>
+              <p className="font-body text-black/45 text-sm leading-relaxed mb-12 max-w-sm">Reach out to discuss your ServiceNow needs. Our team responds within one business day.</p>
               <div className="space-y-5">
                 {[
                   { label:"Phone",    val:"+91 98765 43210" },
                   { label:"Email",    val:"hari@nexushubglobalsolutions.com" },
-                  { label:"General",  val:"info@nexushubglobalsolutions.com" },
-                  { label:"Location", val:"Sulur, Coimbatore, Tamil Nadu — 641402" },
-                  { label:"Hours",    val:"Mon–Fri 9AM–6PM IST · Support 24/7" },
+                  { label:"General",  val:"sales@nexushubglobalsolutions.com" },
+                  { label:"Location", val:"Trichy Rd, near ELGI, Nadar Colony, Coimbatore, Tamil Nadu 641018" },
                 ].map(c => (
                   <div key={c.label} className="flex gap-5 items-start">
-                    <span className="font-mono text-white/20 text-xs w-16 pt-0.5 shrink-0">{c.label}</span>
-                    <span className="font-body text-white/60 text-sm">{c.val}</span>
+                    <span className="font-mono text-black/30 text-xs w-16 pt-0.5 shrink-0">{c.label}</span>
+                    <span className="font-body text-black/70 text-sm">{c.val}</span>
                   </div>
                 ))}
               </div>
-              <div className="flex gap-3 mt-10">
-                {[["in","LinkedIn"],["tw","Twitter"],["ig","Instagram"],["yt","YouTube"]].map(([s,l]) => (
-                  <div key={s} title={l} className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-xs text-white/25 hover:border-white/40 hover:text-white transition-all cursor-pointer font-mono">{s}</div>
-                ))}
+              <div className="mt-10">
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{background:"#111",color:"#fff",display:"inline-flex",alignItems:"center",gap:"10px",padding:"12px 22px",borderRadius:"10px",fontWeight:"600",fontSize:"14px",textDecoration:"none",transition:"all .25s",fontFamily:"'Outfit',sans-serif"}}
+                  onMouseEnter={e => { e.currentTarget.style.background="#0a66c2"; e.currentTarget.style.transform="translateY(-1px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background="#111"; e.currentTarget.style.transform="translateY(0)"; }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  Follow us on LinkedIn
+                </a>
               </div>
             </Reveal>
           </div>
-
           <Reveal delay={0.15}>
-            <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-8">
-              <h3 className="font-display font-bold text-white text-xl mb-8">Send a Message</h3>
+            <div className="bg-[#d4d4d4] border border-[#b0b0b0] rounded-2xl p-8">
+              <h3 className="font-display font-bold text-black text-xl mb-8">Send a Message</h3>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="font-body text-white/30 text-xs mb-2 block">First Name</label>
+                    <label className="font-body text-black/40 text-xs mb-2 block">First Name</label>
                     <input className="ci" placeholder="Arjun" />
                   </div>
                   <div>
-                    <label className="font-body text-white/30 text-xs mb-2 block">Last Name</label>
+                    <label className="font-body text-black/40 text-xs mb-2 block">Last Name</label>
                     <input className="ci" placeholder="Kumar" />
                   </div>
                 </div>
                 <div>
-                  <label className="font-body text-white/30 text-xs mb-2 block">Email Address</label>
+                  <label className="font-body text-black/40 text-xs mb-2 block">Email Address</label>
                   <input className="ci" placeholder="arjun@company.com" />
                 </div>
                 <div>
-                  <label className="font-body text-white/30 text-xs mb-2 block">Module of Interest</label>
-                  <select className="ci">
-                    <option value="">Select a module...</option>
-                    {SERVICES.map(s => <option key={s.code} value={s.code}>{s.code} — {s.name}</option>)}
-                  </select>
+                  <label className="font-body text-black/40 text-xs mb-2 block">Module of Interest</label>
+                  <ModuleDropdown />
                 </div>
                 <div>
-                  <label className="font-body text-white/30 text-xs mb-2 block">Message</label>
+                  <label className="font-body text-black/40 text-xs mb-2 block">Message</label>
                   <textarea className="ci resize-none" rows={4} placeholder="Tell us about your project..." />
                 </div>
-                <button className="btn-light w-full text-center font-body">Send Message →</button>
+                <button className="btn-dark w-full text-center font-body">Send Message →</button>
               </div>
             </div>
           </Reveal>
@@ -582,7 +702,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════
-          FOOTER — Black
+          FOOTER — BLACK
       ══════════════════════════════════════ */}
       <footer className="footer-wrap py-10 px-6 md:px-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
@@ -592,10 +712,18 @@ export default function App() {
             </div>
             <span className="font-display font-black text-white text-sm">NexusHub <span className="text-white/40">Global Solutions</span></span>
           </div>
-          <p className="font-body text-white/20 text-xs text-center">© 2026 Nexus Hub Global Solutions · Sulur, Tamil Nadu, India</p>
-          <div className="flex gap-6">
-            {NAV.map(l => <button key={l} onClick={() => go(l)} className="font-body text-white/20 hover:text-white/60 text-xs transition-colors">{l}</button>)}
-          </div>
+          <p className="font-body text-white/20 text-xs text-center">© 2026 Nexus Hub Global Solutions · Coimbatore, Tamil Nadu, India</p>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all duration-200 text-xs font-body font-medium"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
         </div>
       </footer>
     </div>
