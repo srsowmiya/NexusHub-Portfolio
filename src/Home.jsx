@@ -421,8 +421,8 @@ export default function App() {
               </Reveal>
             </div>
 
-            {/* ── RIGHT — Lottie animation ── */}
-            <div className="flex-1 flex items-center justify-end w-full" style={{minHeight:"580px"}}>
+            {/* ── RIGHT — Lottie animation + floating ServiceNow badge ── */}
+            <div className="flex-1 flex items-center justify-end w-full" style={{minHeight:"580px", position:"relative"}}>
               <lottie-player
                 src="https://assets2.lottiefiles.com/packages/lf20_iorpbol0.json"
                 background="transparent"
@@ -431,6 +431,56 @@ export default function App() {
                 loop
                 autoplay
               />
+              {/* Floating ServiceNow badge — isometric tilt matching animation */}
+              <div style={{
+                position:"absolute",
+                bottom:"22%",
+                left:"12%",
+                animation:"floatSN 4s ease-in-out infinite",
+                zIndex:10,
+                pointerEvents:"none",
+                transform:"rotate(-8deg)",
+              }}>
+                <div style={{position:"relative", width:"58px", height:"58px"}}>
+                  <div style={{
+                    position:"absolute",
+                    top:"6px", left:"6px",
+                    width:"58px", height:"58px",
+                    background:"#1a6644",
+                    borderRadius:"13px",
+                    transform:"skewY(-4deg)",
+                  }} />
+                  <div style={{
+                    position:"absolute",
+                    top:"3px", left:"3px",
+                    width:"58px", height:"58px",
+                    background:"#1d7a4f",
+                    borderRadius:"13px",
+                    transform:"skewY(-2deg)",
+                  }} />
+                  <div style={{
+                    position:"absolute",
+                    top:"0px", left:"0px",
+                    width:"58px", height:"58px",
+                    background:"#29c47a",
+                    borderRadius:"13px",
+                    display:"flex",
+                    alignItems:"center",
+                    justifyContent:"center",
+                    flexDirection:"column",
+                    gap:"1px",
+                  }}>
+                    <span style={{color:"#fff", fontSize:"10px", fontWeight:"900", fontFamily:"'Bebas Neue','Outfit',sans-serif", letterSpacing:".05em", lineHeight:1, textShadow:"0 1px 2px rgba(0,0,0,0.2)"}}>Service</span>
+                    <span style={{color:"#fff", fontSize:"10px", fontWeight:"900", fontFamily:"'Bebas Neue','Outfit',sans-serif", letterSpacing:".05em", lineHeight:1, textShadow:"0 1px 2px rgba(0,0,0,0.2)"}}>Now</span>
+                  </div>
+                </div>
+              </div>
+              <style>{`
+                @keyframes floatSN {
+                  0%,100% { transform: rotate(-8deg) translateY(0px); }
+                  50%     { transform: rotate(-8deg) translateY(-14px); }
+                }
+              `}</style>
             </div>
 
           </div>
@@ -558,7 +608,7 @@ export default function App() {
             {WHY.map((w, i) => (
               <Reveal key={w.t} delay={i * 0.08}>
                 <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
-                  
+                  <div style={{fontSize:"2rem", marginBottom:"14px", lineHeight:1}}>{w.icon}</div>
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
