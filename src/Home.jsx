@@ -170,6 +170,13 @@ export default function App() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js";
+    document.head.appendChild(script);
+    return () => { if (document.head.contains(script)) document.head.removeChild(script); };
+  }, []);
+
   const go = (id) => {
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
@@ -290,7 +297,7 @@ export default function App() {
             ))}
           </nav>
           <div className="hidden md:flex items-center gap-3">
-            <div className="hero-tag">Leading ServiceNow Partner</div>
+            <div className="hero-tag">Open to work</div>
             <button onClick={() => go("Contact")} className="btn-dark">Let's Talk →</button>
           </div>
           <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -312,28 +319,47 @@ export default function App() {
       ══════════════════════════════════════ */}
       <section id="home" className="sec-hero dot-grid-light relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-10 w-full relative z-10">
-          <Reveal delay={0.05}>
-            <div className="hero-tag mb-8">Leading ServiceNow Partner</div>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <h1 className="font-bebas text-[clamp(4rem,11vw,9.5rem)] leading-none tracking-wide text-black mb-2">
-              Where Connections
-            </h1>
-            <h1 className="font-display italic text-[clamp(3rem,8vw,7rem)] leading-none text-black mb-8">
-              Power Solutions
-            </h1>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-12">
-              A next-generation ServiceNow consulting firm helping businesses unlock the full power of the platform through expert implementation, support, and optimization.
-            </p>
-          </Reveal>
-          <Reveal delay={0.32}>
-            <div className="flex flex-wrap gap-4 mb-20">
-              <button onClick={() => go("Services")} className="btn-dark">Explore Services →</button>
-              <button onClick={() => go("About")} className="btn-ghost-dark">Our Story</button>
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-0">
+
+            {/* ── LEFT — content ── */}
+            <div className="flex-1 lg:pr-10">
+              <Reveal delay={0.05}>
+                <div className="hero-tag mb-8">Leading ServiceNow Partner</div>
+              </Reveal>
+              <Reveal delay={0.15}>
+                <h1 className="font-bebas text-[clamp(3.5rem,9vw,8rem)] leading-none tracking-wide text-black mb-2">
+                  Where Connections
+                </h1>
+                <h1 className="font-display italic text-[clamp(2.5rem,6vw,5.5rem)] leading-none text-black mb-8">
+                  Power Solutions
+                </h1>
+              </Reveal>
+              <Reveal delay={0.25}>
+                <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-12">
+                  A next-generation ServiceNow consulting firm helping businesses unlock the full power of the platform through expert implementation, support, and optimization.
+                </p>
+              </Reveal>
+              <Reveal delay={0.32}>
+                <div className="flex flex-wrap gap-4">
+                  <button onClick={() => go("Services")} className="btn-dark">Explore Services →</button>
+                  <button onClick={() => go("About")} className="btn-ghost-dark">Our Story</button>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
+
+            {/* ── RIGHT — Lottie animation ── */}
+            <div className="flex-1 flex items-center justify-end w-full" style={{minHeight:"580px"}}>
+              <lottie-player
+                src="https://assets2.lottiefiles.com/packages/lf20_iorpbol0.json"
+                background="transparent"
+                speed="1"
+                style={{width:"110%", height:"650px", marginRight:"-40px"}}
+                loop
+                autoplay
+              />
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -459,7 +485,7 @@ export default function App() {
             {WHY.map((w, i) => (
               <Reveal key={w.t} delay={i * 0.08}>
                 <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
-                  <div style={{fontSize:"2rem", marginBottom:"14px", lineHeight:1}}>{w.icon}</div>
+              
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
