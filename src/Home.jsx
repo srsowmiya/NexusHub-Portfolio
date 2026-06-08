@@ -41,6 +41,7 @@ const TEAM = [
     name: "Hari",
     role: "Co-Founder & CEO",
     initials: "H",
+    photo: "images/Hari.png",
     desc: "Visionary leader and ServiceNow strategist driving the mission and growth of Nexus Hub.",
     experience: "8+ Years",
     location: "Coimbatore, Tamil Nadu",
@@ -52,6 +53,7 @@ const TEAM = [
     name: "Gokul",
     role: "Co-Founder & CTO",
     initials: "G",
+    photo: "images/Gokul.jpeg",
     desc: "Technical expert across ServiceNow modules, platform architecture, and enterprise integrations.",
     experience: "7+ Years",
     location: "Coimbatore, Tamil Nadu",
@@ -63,6 +65,7 @@ const TEAM = [
     name: "Priya Raj",
     role: "Head of Operations",
     initials: "PR",
+    photo: null,
     desc: "Ensures seamless project delivery and exceptional client experience at every touchpoint.",
     experience: "6+ Years",
     location: "Coimbatore, Tamil Nadu",
@@ -73,12 +76,12 @@ const TEAM = [
 ];
 
 const WHY = [
-  { n:"01", t:"Experienced Team",   d:"Deep ServiceNow expertise across all major modules and real enterprise implementations." },
-  { n:"02", t:"Fast Delivery",      d:"Agile methodology ensures faster time-to-value without sacrificing quality." },
-  { n:"03", t:"Affordable Pricing", d:"Competitive, transparent pricing for businesses of all sizes — no hidden costs." },
-  { n:"04", t:"24/7 Support",       d:"Round-the-clock support so your ServiceNow platform never sleeps." },
-  { n:"05", t:"Custom Solutions",   d:"No templates. Every implementation is tailored precisely to your business needs." },
-  { n:"06", t:"Global Vision",      d:"Born in Tamil Nadu, India — built to serve clients across the globe." },
+  { icon:"⚡", t:"Experienced Team",   d:"Deep ServiceNow expertise across all major modules and real enterprise implementations. Our consultants have delivered projects across ITSM, CSM, HRSD, SecOps, and more.", highlight:"8+ years avg. experience" },
+  { icon:"🚀", t:"Fast Delivery",      d:"Agile delivery methodology ensures faster time-to-value without sacrificing quality. We work in sprints, deliver early, and iterate quickly to meet your deadlines.", highlight:"30% faster than industry avg." },
+  { icon:"💎", t:"Affordable Pricing", d:"Competitive, transparent pricing for businesses of all sizes — no hidden costs, no surprises. We offer flexible engagement models from fixed-price to time & material.", highlight:"Flexible engagement models" },
+  { icon:"🛡️", t:"24/7 Support",       d:"Round-the-clock support so your ServiceNow platform never sleeps. Our dedicated support team is always on call — critical incidents are resolved within the hour.", highlight:"< 1hr critical response time" },
+  { icon:"🎯", t:"Custom Solutions",   d:"No templates, no copy-paste implementations. Every engagement begins with deep discovery. We tailor every workflow, integration, and UI to your exact business context.", highlight:"100% tailored implementations" },
+  { icon:"🌏", t:"Global Vision",      d:"Born in Tamil Nadu, India — built to serve clients across the globe. We combine local understanding with international delivery standards and best practices.", highlight:"Clients across 5+ countries" },
 ];
 
 const NAV = ["Home","About","Services","Team","Contact"];
@@ -454,12 +457,16 @@ export default function App() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY.map((w, i) => (
-              <Reveal key={w.n} delay={i * 0.08}>
-                <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300">
-                  <div className="why-num mb-4">{w.n}</div>
+              <Reveal key={w.t} delay={i * 0.08}>
+                <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
+                 
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
-                  <p className="font-body text-white/35 text-sm leading-relaxed">{w.d}</p>
+                  <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
+                  <div style={{display:"inline-flex", alignItems:"center", gap:"6px", padding:"6px 12px", borderRadius:"8px", background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", width:"fit-content"}}>
+                    <div style={{width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,255,255,0.4)", flexShrink:0}} />
+                    <span style={{color:"rgba(255,255,255,0.5)", fontSize:"11px", fontFamily:"'Outfit',sans-serif", fontWeight:500}}>{w.highlight}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -489,7 +496,7 @@ export default function App() {
           </div>
 
           {/* Cards row + detail panel */}
-          <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex flex-col lg:flex-row gap-6 items-stretch">
             {/* Cards column */}
             <div className={`flex flex-col gap-4 transition-all duration-500 ${selectedMember ? "lg:w-[340px] shrink-0" : "w-full grid grid-cols-1 md:grid-cols-3"}`}
               style={selectedMember ? {} : {display:"grid"}}>
@@ -510,78 +517,93 @@ export default function App() {
                       </div>
                       <div className="ml-auto text-black/30 text-lg transition-transform duration-300" style={{transform: selectedMember?.name === m.name ? "rotate(45deg)" : "rotate(0)"}}>+</div>
                     </div>
-                    {!selectedMember && (
-                      <>
-                        <div className="line-deco-dark mb-3" />
-                        <p className="font-body text-black/45 text-sm leading-relaxed">{m.desc}</p>
-                      </>
-                    )}
-                    {selectedMember && (
-                      <p className="font-body text-black/40 text-xs leading-relaxed">{m.desc}</p>
-                    )}
+                    <div className="line-deco-dark mb-3" />
+                    <p className="font-body text-black/45 text-sm leading-relaxed">{m.desc}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
 
-            {/* Detail panel — black bg, white text */}
+            {/* Detail panel — black bg, white text, fills right side */}
             {selectedMember && (
-              <div className="member-panel entered flex-1 min-w-0 p-8 md:p-10" style={{background:"#111"}}>
-                {/* Header */}
-                <div className="flex items-start justify-between mb-8">
-                  <div className="flex items-center gap-5">
-                    <div className="w-16 h-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center font-display font-bold text-white text-xl shrink-0">
-                      {selectedMember.initials}
-                    </div>
-                    <div>
-                      <h3 className="font-display font-bold text-white text-2xl mb-1">{selectedMember.name}</h3>
-                      <div className="text-white/45 text-sm font-body">{selectedMember.role}</div>
-                    </div>
+              <div className="member-panel entered flex-1 min-w-0 flex flex-col" style={{background:"#111", borderRadius:"16px", overflow:"hidden"}}>
+
+                {/* ── Top bar: name/role left + close right ── */}
+                <div style={{padding:"22px 22px 18px 22px", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0}}>
+                  <div>
+                    <h3 className="font-display font-bold text-white" style={{fontSize:"1.4rem", lineHeight:1.15, marginBottom:"4px"}}>{selectedMember.name}</h3>
+                    <div className="font-body text-white/40" style={{fontSize:"12px"}}>{selectedMember.role}</div>
                   </div>
                   <button
-                    onClick={() => setSelectedMember(null)}
-                    className="text-white/30 hover:text-white transition-colors text-2xl leading-none font-light mt-1"
-                    style={{background:"none",border:"none",cursor:"pointer"}}
+                    onClick={(e) => { e.stopPropagation(); setSelectedMember(null); }}
+                    style={{background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"8px", width:"32px", height:"32px", display:"flex", alignItems:"center", justifyContent:"center", color:"rgba(255,255,255,0.5)", fontSize:"16px", cursor:"pointer", flexShrink:0, lineHeight:1}}
+                    onMouseEnter={e => { e.currentTarget.style.background="rgba(255,255,255,0.12)"; e.currentTarget.style.color="#fff"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,0.06)"; e.currentTarget.style.color="rgba(255,255,255,0.5)"; }}
                   >×</button>
                 </div>
 
-                {/* Meta row */}
-                <div className="flex flex-wrap gap-4 mb-8 pb-8 border-b border-white/8">
-                  <div className="flex items-center gap-2">
-                    <span className="text-white/20 text-xs font-mono uppercase tracking-widest">Experience</span>
-                    <span className="text-white font-body font-600 text-sm">{selectedMember.experience}</span>
-                  </div>
-                  <div className="w-px bg-white/10" />
-                  <div className="flex items-center gap-2">
-                    <span className="text-white/20 text-xs font-mono uppercase tracking-widest">Based in</span>
-                    <span className="text-white font-body font-600 text-sm">{selectedMember.location}</span>
-                  </div>
-                </div>
+                {/* ── Body: info left, photo right ── */}
+                <div style={{display:"flex", flex:1, minHeight:0, overflow:"hidden"}}>
 
-                {/* About */}
-                <div className="mb-8">
-                  <div className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3">About</div>
-                  <p className="text-white/60 font-body text-sm leading-relaxed">{selectedMember.about}</p>
-                </div>
+                  {/* LEFT — scrollable info */}
+                  <div style={{flex:1, minWidth:0, padding:"22px 24px", overflowY:"auto", display:"flex", flexDirection:"column", gap:"20px"}}>
 
-                {/* Expertise */}
-                <div className="mb-8">
-                  <div className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3">Areas of Expertise</div>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedMember.expertise.map(e => (
-                      <span key={e} className="expertise-tag">{e}</span>
-                    ))}
-                  </div>
-                </div>
+                    {/* Meta */}
+                    <div style={{display:"flex", gap:"20px", flexWrap:"wrap"}}>
+                      <div>
+                        <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"4px"}}>Experience</div>
+                        <div className="font-body text-white" style={{fontSize:"14px", fontWeight:600}}>{selectedMember.experience}</div>
+                      </div>
+                      <div style={{width:"1px", background:"rgba(255,255,255,0.08)"}} />
+                      <div>
+                        <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"4px"}}>Based in</div>
+                        <div className="font-body text-white" style={{fontSize:"14px", fontWeight:600}}>{selectedMember.location}</div>
+                      </div>
+                    </div>
 
-                {/* Modules */}
-                <div>
-                  <div className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3">Key Modules</div>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedMember.modules.map(mod => (
-                      <span key={mod} className="module-chip">{mod}</span>
-                    ))}
+                    {/* About */}
+                    <div>
+                      <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"8px"}}>About</div>
+                      <p className="font-body text-white/55" style={{fontSize:"13px", lineHeight:"1.75"}}>{selectedMember.about}</p>
+                    </div>
+
+                    {/* Expertise */}
+                    <div>
+                      <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"8px"}}>Expertise</div>
+                      <div style={{display:"flex", flexWrap:"wrap", gap:"6px"}}>
+                        {selectedMember.expertise.map(e => (
+                          <span key={e} className="expertise-tag" style={{fontSize:"12px", padding:"5px 12px"}}>{e}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Key Modules */}
+                    <div>
+                      <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"8px"}}>Key Modules</div>
+                      <div style={{display:"flex", flexWrap:"wrap", gap:"6px"}}>
+                        {selectedMember.modules.map(mod => (
+                          <span key={mod} className="module-chip" style={{fontSize:"12px"}}>{mod}</span>
+                        ))}
+                      </div>
+                    </div>
+
                   </div>
+
+                  {/* RIGHT — tall photo */}
+                  <div style={{width:"320px", flexShrink:0, overflow:"hidden", borderLeft:"1px solid rgba(255,255,255,0.06)"}}>
+                    {selectedMember.photo ? (
+                      <img
+                        src={selectedMember.photo}
+                        alt={selectedMember.name}
+                        style={{width:"100%", height:"100%", objectFit:"cover", objectPosition:"center 15%", display:"block"}}
+                      />
+                    ) : (
+                      <div style={{width:"100%", height:"100%", background:"#1a1a1a", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                        <span style={{fontFamily:"'Playfair Display',serif", fontWeight:"700", fontSize:"4rem", color:"rgba(255,255,255,0.12)"}}>{selectedMember.initials}</span>
+                      </div>
+                    )}
+                  </div>
+
                 </div>
               </div>
             )}
