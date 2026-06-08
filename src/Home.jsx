@@ -41,7 +41,7 @@ const TEAM = [
     name: "Hari",
     role: "Co-Founder & CEO",
     initials: "H",
-    photo: "images/Hari.png",
+    photo: "/images/Hari.png",
     desc: "Visionary leader and ServiceNow strategist driving the mission and growth of Nexus Hub.",
     experience: "8+ Years",
     location: "Coimbatore, Tamil Nadu",
@@ -53,7 +53,7 @@ const TEAM = [
     name: "Gokul",
     role: "Co-Founder & CTO",
     initials: "G",
-    photo: "images/Gokul.jpeg",
+    photo: "/images/Gokul.jpeg",
     desc: "Technical expert across ServiceNow modules, platform architecture, and enterprise integrations.",
     experience: "7+ Years",
     location: "Coimbatore, Tamil Nadu",
@@ -459,7 +459,7 @@ export default function App() {
             {WHY.map((w, i) => (
               <Reveal key={w.t} delay={i * 0.08}>
                 <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
-                 
+                  <div style={{fontSize:"2rem", marginBottom:"14px", lineHeight:1}}>{w.icon}</div>
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
