@@ -33,30 +33,30 @@ const SERVICES = [
   { code: "GRC",    name: "Governance, Risk & Compliance", desc: "Risk management, audit & policy compliance",             num: "08" },
   { code: "SAM",    name: "Software Asset Management",     desc: "License management, compliance & cost control",          num: "09" },
   { code: "HAM",    name: "Hardware Asset Management",     desc: "Hardware tracking, lifecycle & compliance",              num: "10" },
-  { code: "SOM",    name: "Service Operations Management", desc: "End-to-end service operations visibility",               num: "11" },
+  { code: "SOM",    name: "Sales Operations Management", desc: "End-to-end service operations visibility",               num: "11" },
 ];
 
 const TEAM = [
   {
     name: "Hari",
-    role: "Co-Founder & CEO",
+    role: "Founder & CEO",
     initials: "H",
     photo: "/images/Hari.png",
     desc: "Visionary leader and ServiceNow strategist driving the mission and growth of Nexus Hub.",
     experience: "8+ Years",
-    location: "Coimbatore, Tamil Nadu",
+    location: "Coimbatore, India",
     expertise: ["ServiceNow Strategy", "Business Development", "Enterprise Architecture", "Digital Transformation"],
     about: "Hari is the driving force behind Nexus Hub Global Solutions. With over 8 years of experience in the ServiceNow ecosystem, he has led end-to-end implementations for enterprise clients across India and internationally. His vision is to make Nexus Hub the go-to ServiceNow partner for businesses seeking reliable, tailored, and scalable solutions.",
     modules: ["ITSM", "CSM", "HRSD", "GRC"],
   },
   {
     name: "Gokul",
-    role: "Co-Founder & CTO",
+    role: "Founder & CTO",
     initials: "G",
     photo: "/images/Gokul.jpeg",
     desc: "Technical expert across ServiceNow modules, platform architecture, and enterprise integrations.",
     experience: "7+ Years",
-    location: "Coimbatore, Tamil Nadu",
+    location: "Coimbatore, India",
     expertise: ["Platform Architecture", "API Integrations", "ServiceNow Development", "SecOps & ITOM"],
     about: "Gokul is the technical backbone of Nexus Hub. He specializes in deep ServiceNow platform customization, complex enterprise integrations, and building scalable architectures. His hands-on experience across 11+ modules ensures every implementation is built to last.",
     modules: ["ITOM", "SecOps", "SAM", "HAM", "ITAM"],
@@ -68,7 +68,7 @@ const TEAM = [
     photo: null,
     desc: "Ensures seamless project delivery and exceptional client experience at every touchpoint.",
     experience: "6+ Years",
-    location: "Coimbatore, Tamil Nadu",
+    location: "Coimbatore, India",
     expertise: ["Project Management", "Client Relations", "Agile Delivery", "Quality Assurance"],
     about: "Priya Raj oversees the operational engine of Nexus Hub. She ensures every project is delivered on time, within scope, and to the highest quality standards. Her client-first mindset and process discipline have been key to the company's 100% satisfaction record.",
     modules: ["FSM", "HRSD", "SOM", "CSM"],
@@ -76,20 +76,20 @@ const TEAM = [
 ];
 
 const WHY = [
-  { icon:"⚡", t:"Experienced Team",   d:"Deep ServiceNow expertise across all major modules and real enterprise implementations. Our consultants have delivered projects across ITSM, CSM, HRSD, SecOps, and more.", highlight:"8+ years avg. experience" },
+  { icon:"⚡", t:"Experienced Team",   d:"Deep ServiceNow expertise across all major modules and real enterprise implementations. Our consultants have delivered projects across ITSM, CSM, HRSD, SecOps, and more.", highlight:"5+ years avg. experience" },
   { icon:"🚀", t:"Fast Delivery",      d:"Agile delivery methodology ensures faster time-to-value without sacrificing quality. We work in sprints, deliver early, and iterate quickly to meet your deadlines.", highlight:"30% faster than industry avg." },
   { icon:"💎", t:"Affordable Pricing", d:"Competitive, transparent pricing for businesses of all sizes — no hidden costs, no surprises. We offer flexible engagement models from fixed-price to time & material.", highlight:"Flexible engagement models" },
   { icon:"🛡️", t:"24/7 Support",       d:"Round-the-clock support so your ServiceNow platform never sleeps. Our dedicated support team is always on call — critical incidents are resolved within the hour.", highlight:"< 1hr critical response time" },
   { icon:"🎯", t:"Custom Solutions",   d:"No templates, no copy-paste implementations. Every engagement begins with deep discovery. We tailor every workflow, integration, and UI to your exact business context.", highlight:"100% tailored implementations" },
-  { icon:"🌏", t:"Global Vision",      d:"Born in Tamil Nadu, India — built to serve clients across the globe. We combine local understanding with international delivery standards and best practices.", highlight:"Clients across 5+ countries" },
+  { icon:"🌏", t:"Global Vision",      d:"Born in India — built to serve clients across the globe. We combine local understanding with international delivery standards and best practices.", highlight:"Clients across 5+ countries" },
 ];
 
 const NAV = ["Home","About","Services","Team","Contact"];
 
-/* ── Custom Dropdown ── */
+/* ── Custom Multi-Select Dropdown ── */
 const ModuleDropdown = () => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -98,24 +98,58 @@ const ModuleDropdown = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const toggle = (s) => {
+    setSelected(prev =>
+      prev.find(x => x.code === s.code)
+        ? prev.filter(x => x.code !== s.code)
+        : [...prev, s]
+    );
+  };
+
+  const isSelected = (code) => selected.some(x => x.code === code);
+
   return (
     <div ref={ref} className="relative">
+      {/* Trigger */}
       <button
         type="button"
         onClick={() => setOpen(!open)}
         className="ci w-full text-left flex items-center justify-between"
-        style={{cursor:"pointer"}}
+        style={{cursor:"pointer", minHeight:"48px", height:"auto", padding:"10px 18px"}}
       >
-        <span style={{color: selected ? "#111" : "#777", fontSize:"14px"}}>
-          {selected ? `${selected.code} — ${selected.name}` : "Select a module..."}
-        </span>
-        <svg
-          width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" strokeWidth="2"
-          style={{transition:"transform .25s", transform: open ? "rotate(180deg)" : "rotate(0deg)", flexShrink:0}}
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+        <div style={{flex:1, display:"flex", flexWrap:"wrap", gap:"5px", minHeight:"22px"}}>
+          {selected.length === 0 ? (
+            <span style={{color:"#777", fontSize:"14px", lineHeight:"22px"}}>Select modules...</span>
+          ) : (
+            selected.map(s => (
+              <span key={s.code} style={{
+                display:"inline-flex", alignItems:"center", gap:"5px",
+                background:"#111", color:"#fff", fontSize:"11px", fontFamily:"monospace",
+                fontWeight:"700", padding:"3px 8px", borderRadius:"6px", letterSpacing:".03em",
+              }}>
+                {s.code}
+                <span
+                  onClick={(e) => { e.stopPropagation(); toggle(s); }}
+                  style={{cursor:"pointer", opacity:0.5, fontSize:"12px", lineHeight:1, marginLeft:"2px"}}
+                >×</span>
+              </span>
+            ))
+          )}
+        </div>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", flexShrink:0, marginLeft:"8px"}}>
+          {selected.length > 0 && (
+            <span style={{background:"rgba(0,0,0,0.15)", color:"#555", fontSize:"10px", fontWeight:"700", padding:"2px 7px", borderRadius:"999px"}}>
+              {selected.length}
+            </span>
+          )}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" strokeWidth="2"
+            style={{transition:"transform .25s", transform: open ? "rotate(180deg)" : "rotate(0deg)"}}>
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
       </button>
+
+      {/* Dropdown panel */}
       {open && (
         <div style={{
           position:"absolute", top:"calc(100% + 6px)", left:0, right:0, zIndex:50,
@@ -123,35 +157,62 @@ const ModuleDropdown = () => {
           overflow:"hidden", boxShadow:"0 16px 48px rgba(0,0,0,0.4)",
           maxHeight:"320px", overflowY:"auto",
         }}>
-          {SERVICES.map((s) => (
-            <button
-              key={s.code}
-              type="button"
-              onClick={() => { setSelected(s); setOpen(false); }}
-              style={{
-                display:"flex", alignItems:"center", gap:"14px", width:"100%",
-                padding:"12px 16px", background: selected?.code === s.code ? "#2a2a2a" : "transparent",
-                border:"none", cursor:"pointer", textAlign:"left",
-                borderBottom:"1px solid rgba(255,255,255,0.05)",
-                transition:"background .15s",
-              }}
-              onMouseEnter={e => { if (selected?.code !== s.code) e.currentTarget.style.background="#222"; }}
-              onMouseLeave={e => { if (selected?.code !== s.code) e.currentTarget.style.background="transparent"; }}
-            >
-              <span style={{
-                padding:"3px 8px", borderRadius:"6px", background:"rgba(255,255,255,0.08)",
-                color:"rgba(255,255,255,0.7)", fontSize:"11px", fontFamily:"monospace",
-                fontWeight:"600", letterSpacing:".04em", flexShrink:0,
-              }}>{s.code}</span>
-              <div>
-                <div style={{color:"#fff", fontSize:"13px", fontWeight:"500", fontFamily:"'Outfit',sans-serif"}}>{s.name}</div>
-                <div style={{color:"rgba(255,255,255,.3)", fontSize:"11px", fontFamily:"'Outfit',sans-serif", marginTop:"2px"}}>{s.desc}</div>
-              </div>
-              {selected?.code === s.code && (
-                <svg style={{marginLeft:"auto",flexShrink:0}} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              )}
+          {/* Select all / clear */}
+          <div style={{padding:"8px 14px", borderBottom:"1px solid rgba(255,255,255,0.06)", display:"flex", gap:"10px"}}>
+            <button type="button" onClick={() => setSelected([...SERVICES])}
+              style={{background:"none", border:"none", color:"rgba(255,255,255,0.4)", fontSize:"11px", cursor:"pointer", fontFamily:"'Outfit',sans-serif", padding:0}}>
+              Select all
             </button>
-          ))}
+            <span style={{color:"rgba(255,255,255,0.15)"}}>·</span>
+            <button type="button" onClick={() => setSelected([])}
+              style={{background:"none", border:"none", color:"rgba(255,255,255,0.4)", fontSize:"11px", cursor:"pointer", fontFamily:"'Outfit',sans-serif", padding:0}}>
+              Clear
+            </button>
+          </div>
+
+          {SERVICES.map((s) => {
+            const checked = isSelected(s.code);
+            return (
+              <button
+                key={s.code}
+                type="button"
+                onClick={() => toggle(s)}
+                style={{
+                  display:"flex", alignItems:"center", gap:"12px", width:"100%",
+                  padding:"11px 16px", background: checked ? "rgba(255,255,255,0.05)" : "transparent",
+                  border:"none", cursor:"pointer", textAlign:"left",
+                  borderBottom:"1px solid rgba(255,255,255,0.04)",
+                  transition:"background .15s",
+                }}
+                onMouseEnter={e => { if (!checked) e.currentTarget.style.background="rgba(255,255,255,0.03)"; }}
+                onMouseLeave={e => { if (!checked) e.currentTarget.style.background="transparent"; }}
+              >
+                {/* Checkbox */}
+                <div style={{
+                  width:"16px", height:"16px", borderRadius:"4px", flexShrink:0,
+                  border: checked ? "none" : "1.5px solid rgba(255,255,255,0.2)",
+                  background: checked ? "#fff" : "transparent",
+                  display:"flex", alignItems:"center", justifyContent:"center",
+                  transition:"all .15s",
+                }}>
+                  {checked && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>}
+                </div>
+
+                <span style={{
+                  padding:"2px 8px", borderRadius:"6px",
+                  background: checked ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.07)",
+                  color: checked ? "#fff" : "rgba(255,255,255,0.6)",
+                  fontSize:"11px", fontFamily:"monospace", fontWeight:"700", flexShrink:0,
+                  letterSpacing:".03em",
+                }}>{s.code}</span>
+
+                <div style={{flex:1, minWidth:0}}>
+                  <div style={{color: checked ? "#fff" : "rgba(255,255,255,0.75)", fontSize:"13px", fontWeight:"500", fontFamily:"'Outfit',sans-serif"}}>{s.name}</div>
+                  <div style={{color:"rgba(255,255,255,.25)", fontSize:"11px", fontFamily:"'Outfit',sans-serif", marginTop:"1px", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>{s.desc}</div>
+                </div>
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
@@ -163,6 +224,7 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeIdx, setActiveIdx]   = useState(null);
   const [selectedMember, setSelectedMember] = useState(null);
+  const [hoveredMember, setHoveredMember] = useState(null);
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
@@ -218,6 +280,8 @@ export default function App() {
         .hero-tag    { display:inline-flex; align-items:center; gap:8px; background:#d8d8d8; border:1px solid #b0b0b0; border-radius:999px; padding:7px 18px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#333; }
         .hero-divider{ height:1px; background:linear-gradient(90deg,transparent,#999,transparent); }
         .dot-grid-light { background-image:radial-gradient(#aaa 1px,transparent 1px); background-size:26px 26px; }
+        .live-dot { width:7px; height:7px; background:#22c55e; border-radius:50%; display:inline-block; animation:livepulse 2s ease-in-out infinite; flex-shrink:0; }
+        @keyframes livepulse { 0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,.3)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,.1)} }
 
         /* ── BUTTONS always enforce their own text color ── */
         .btn-dark, .btn-dark:hover, .btn-dark:focus  { color:#fff !important; }
@@ -231,7 +295,6 @@ export default function App() {
         /* ── MARQUEE ── */
         .marquee-wrap-dark  { background:#111; border-top:1px solid #222; border-bottom:1px solid #222; }
         .marquee-wrap-light { background:#C8C8C8; border-top:1px solid #b0b0b0; border-bottom:1px solid #b0b0b0; }
-        /* text inside dark marquee = light grey, inside light marquee = dark */
         .marquee-wrap-dark  .marquee-text { color:rgba(255,255,255,0.35) !important; }
         .marquee-wrap-light .marquee-text { color:rgba(0,0,0,0.7) !important; }
         .marquee { animation:marquee 24s linear infinite; white-space:nowrap; display:inline-block; }
@@ -241,16 +304,17 @@ export default function App() {
         .sec-black   { background:#111; }
 
         /* ── ABOUT accordions ── */
-        .about-accordion { border:1.5px solid #222; border-radius:14px; padding:22px 24px; background:#1a1a1a; cursor:pointer; transition:border-color .2s, background .2s; }
-        .about-accordion:hover { border-color:#fff; background:#222; }
-
-        /* ── WHY cards ── */
-        .why-num { font-family:'Bebas Neue',sans-serif; font-size:52px; color:rgba(255,255,255,0.08); line-height:1; }
+        .about-accordion { border:1.5px solid #222; border-radius:14px; padding:22px 24px; background:#1a1a1a; cursor:pointer; transition:border-color .25s, background .25s, transform .25s, box-shadow .25s; position:relative; overflow:hidden; }
+        .about-accordion::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:#fff; border-radius:3px 0 0 3px; transform:scaleY(0); transition:transform .25s cubic-bezier(.22,1,.36,1); transform-origin:center; }
+        .about-accordion:hover { border-color:#444; background:#222; transform:translateX(4px); box-shadow: -4px 0 16px rgba(255,255,255,0.04); }
+        .about-accordion:hover::before { transform:scaleY(1); }
 
         /* ── TEAM ── */
-        .team-card { cursor:pointer; transition: border-color .25s, transform .25s, box-shadow .25s; }
+        .team-card { cursor:pointer; transition: border-color .25s, transform .25s, box-shadow .25s; position:relative; }
         .team-card:hover { border-color:#000 !important; box-shadow: 0 8px 28px rgba(0,0,0,0.18); transform:translateY(-3px); }
         .team-card.active { border-color:#000 !important; box-shadow: 0 0 0 2px #111; }
+        .team-card-hover-hint { position:absolute; bottom:12px; right:14px; background:#111; color:#fff !important; font-size:10px; font-family:'Outfit',sans-serif; font-weight:600; padding:4px 10px; border-radius:999px; opacity:0; transition:opacity .2s; pointer-events:none; letter-spacing:.03em; white-space:nowrap; }
+        .team-card:hover .team-card-hover-hint { opacity:1; }
         .member-panel { background:#111; border-radius:20px; overflow:hidden; transition: opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1); }
         .member-panel.entering { opacity:0; transform:translateX(20px); }
         .member-panel.entered  { opacity:1; transform:translateX(0); }
@@ -285,21 +349,31 @@ export default function App() {
       ══════════════════════════════════════ */}
       <header className={`fixed top-0 left-0 right-0 z-50 nav-wrap transition-all duration-300 ${scrolled ? "shadow-sm" : ""}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-18">
+
+          {/* Logo — left corner */}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center">
               <span className="text-white font-bebas text-lg leading-none">N</span>
             </div>
             <span className="font-display font-black text-xl text-black tracking-tight leading-none">NexusHub</span>
           </div>
+
+          {/* Nav — centre */}
           <nav className="hidden md:flex items-center gap-8">
             {NAV.map(l => (
               <button key={l} onClick={() => go(l)} className="nav-link font-body">{l}</button>
             ))}
           </nav>
+
+          {/* CTA — right */}
           <div className="hidden md:flex items-center gap-3">
-            <div className="hero-tag">Open to work</div>
+            <div className="hero-tag" style={{gap:"8px"}}>
+              <span className="live-dot" />
+              Open to work
+            </div>
             <button onClick={() => go("Contact")} className="btn-dark">Let's Talk →</button>
           </div>
+
           <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
             <div className={`w-5 h-px bg-black mb-1.5 transition-all origin-center ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
             <div className={`w-5 h-px bg-black mb-1.5 transition-all ${mobileOpen ? "opacity-0" : ""}`} />
@@ -324,18 +398,18 @@ export default function App() {
             {/* ── LEFT — content ── */}
             <div className="flex-1 lg:pr-10">
               <Reveal delay={0.05}>
-                <div className="hero-tag mb-8">Leading ServiceNow Partner</div>
+                <div className="hero-tag mb-6">Leading ServiceNow Firm</div>
               </Reveal>
               <Reveal delay={0.15}>
                 <h1 className="font-bebas text-[clamp(3.5rem,9vw,8rem)] leading-none tracking-wide text-black mb-2">
                   Where Connections
                 </h1>
-                <h1 className="font-display italic text-[clamp(2.5rem,6vw,5.5rem)] leading-none text-black mb-8">
+                <h1 className="font-display italic text-[clamp(2.5rem,6vw,5.5rem)] leading-none text-black mb-6">
                   Power Solutions
                 </h1>
               </Reveal>
               <Reveal delay={0.25}>
-                <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-12">
+                <p className="font-body text-black/50 text-lg max-w-xl leading-relaxed mb-8">
                   A next-generation ServiceNow consulting firm helping businesses unlock the full power of the platform through expert implementation, support, and optimization.
                 </p>
               </Reveal>
@@ -383,7 +457,7 @@ export default function App() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="font-body text-white/45 leading-relaxed mb-5">
-                Founded in 2026 in Tamil Nadu by a passionate team of ServiceNow professionals. We specialize exclusively in the ServiceNow ecosystem — making us one of the most focused and capable partners in the region.
+                Founded in 2026 in India by a passionate team of ServiceNow professionals. We specialize exclusively in the ServiceNow ecosystem — making us one of the most focused and capable partners in the region.
               </p>
               <p className="font-body text-white/30 leading-relaxed mb-10">
                 Young, ambitious, and global in vision — built on the belief that the right implementation can unlock unlimited potential for any organization.
@@ -453,7 +527,6 @@ export default function App() {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="svc-badge">{s.code}</span>
-                    <span className="text-black/0 group-hover:text-black transition-all text-lg">→</span>
                   </div>
                 </div>
               </Reveal>
@@ -485,7 +558,7 @@ export default function App() {
             {WHY.map((w, i) => (
               <Reveal key={w.t} delay={i * 0.08}>
                 <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
-              
+                  
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
@@ -509,7 +582,6 @@ export default function App() {
 
       {/* ══════════════════════════════════════
           5. TEAM — GREY bg, black text
-             Click card → black panel opens right
       ══════════════════════════════════════ */}
       <section id="team" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -521,7 +593,6 @@ export default function App() {
             </Reveal>
           </div>
 
-          {/* Cards row + detail panel */}
           <div className="flex flex-col lg:flex-row gap-6 items-stretch">
             {/* Cards column */}
             <div className={`flex flex-col gap-4 transition-all duration-500 ${selectedMember ? "lg:w-[340px] shrink-0" : "w-full grid grid-cols-1 md:grid-cols-3"}`}
@@ -545,16 +616,16 @@ export default function App() {
                     </div>
                     <div className="line-deco-dark mb-3" />
                     <p className="font-body text-black/45 text-sm leading-relaxed">{m.desc}</p>
+                    {/* Hover hint */}
+                    <div className="team-card-hover-hint">Click to know about {m.name}</div>
                   </div>
                 </Reveal>
               ))}
             </div>
 
-            {/* Detail panel — black bg, white text, fills right side */}
+            {/* Detail panel */}
             {selectedMember && (
               <div className="member-panel entered flex-1 min-w-0 flex flex-col" style={{background:"#111", borderRadius:"16px", overflow:"hidden"}}>
-
-                {/* ── Top bar: name/role left + close right ── */}
                 <div style={{padding:"22px 22px 18px 22px", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0}}>
                   <div>
                     <h3 className="font-display font-bold text-white" style={{fontSize:"1.4rem", lineHeight:1.15, marginBottom:"4px"}}>{selectedMember.name}</h3>
@@ -568,13 +639,9 @@ export default function App() {
                   >×</button>
                 </div>
 
-                {/* ── Body: info left, photo right ── */}
                 <div style={{display:"flex", flex:1, minHeight:0, overflow:"hidden"}}>
-
-                  {/* LEFT — scrollable info */}
+                  {/* LEFT — info */}
                   <div style={{flex:1, minWidth:0, padding:"22px 24px", overflowY:"auto", display:"flex", flexDirection:"column", gap:"20px"}}>
-
-                    {/* Meta */}
                     <div style={{display:"flex", gap:"20px", flexWrap:"wrap"}}>
                       <div>
                         <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"4px"}}>Experience</div>
@@ -586,14 +653,10 @@ export default function App() {
                         <div className="font-body text-white" style={{fontSize:"14px", fontWeight:600}}>{selectedMember.location}</div>
                       </div>
                     </div>
-
-                    {/* About */}
                     <div>
                       <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"8px"}}>About</div>
                       <p className="font-body text-white/55" style={{fontSize:"13px", lineHeight:"1.75"}}>{selectedMember.about}</p>
                     </div>
-
-                    {/* Expertise */}
                     <div>
                       <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"8px"}}>Expertise</div>
                       <div style={{display:"flex", flexWrap:"wrap", gap:"6px"}}>
@@ -602,8 +665,6 @@ export default function App() {
                         ))}
                       </div>
                     </div>
-
-                    {/* Key Modules */}
                     <div>
                       <div style={{color:"rgba(255,255,255,0.22)", fontSize:"9px", fontFamily:"monospace", textTransform:"uppercase", letterSpacing:".1em", marginBottom:"8px"}}>Key Modules</div>
                       <div style={{display:"flex", flexWrap:"wrap", gap:"6px"}}>
@@ -612,24 +673,19 @@ export default function App() {
                         ))}
                       </div>
                     </div>
-
                   </div>
 
-                  {/* RIGHT — tall photo */}
+                  {/* RIGHT — photo */}
                   <div style={{width:"320px", flexShrink:0, overflow:"hidden", borderLeft:"1px solid rgba(255,255,255,0.06)"}}>
                     {selectedMember.photo ? (
-                      <img
-                        src={selectedMember.photo}
-                        alt={selectedMember.name}
-                        style={{width:"100%", height:"100%", objectFit:"cover", objectPosition:"center 15%", display:"block"}}
-                      />
+                      <img src={selectedMember.photo} alt={selectedMember.name}
+                        style={{width:"100%", height:"100%", objectFit:"cover", objectPosition:"center 15%", display:"block"}} />
                     ) : (
                       <div style={{width:"100%", height:"100%", background:"#1a1a1a", display:"flex", alignItems:"center", justifyContent:"center"}}>
                         <span style={{fontFamily:"'Playfair Display',serif", fontWeight:"700", fontSize:"4rem", color:"rgba(255,255,255,0.12)"}}>{selectedMember.initials}</span>
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
             )}
@@ -640,7 +696,7 @@ export default function App() {
       {/* Marquee — DARK (grey → black) */}
       <div className="marquee-wrap-dark py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
-          {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · Tamil Nadu · Global Vision · Nexus Hub · ").join("")}
+          {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · India · Global Vision · Nexus Hub · ").join("")}
         </div>
       </div>
 
@@ -669,7 +725,7 @@ export default function App() {
       {/* Marquee — LIGHT (black → grey) */}
       <div className="marquee-wrap-light py-4 overflow-hidden">
         <div className="marquee marquee-text text-sm font-body font-medium tracking-widest uppercase">
-          {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · Tamil Nadu · Global Vision · Nexus Hub · ").join("")}
+          {Array(8).fill("Let's Connect · Start Your Journey · ServiceNow Experts · India · Global Vision · Nexus Hub · ").join("")}
         </div>
       </div>
 
@@ -689,9 +745,8 @@ export default function App() {
               <div className="space-y-5">
                 {[
                   { label:"Phone",    val:"+91 98765 43210" },
-                  { label:"Email",    val:"hari@nexushubglobalsolutions.com" },
                   { label:"General",  val:"sales@nexushubglobalsolutions.com" },
-                  { label:"Location", val:"Trichy Rd, near ELGI, Nadar Colony, Coimbatore, Tamil Nadu 641018" },
+                  { label:"Location", val:"Trichy Rd, near ELGI, Nadar Colony, Coimbatore, India 641018" },
                 ].map(c => (
                   <div key={c.label} className="flex gap-5 items-start">
                     <span className="font-mono text-black/30 text-xs w-16 pt-0.5 shrink-0">{c.label}</span>
@@ -760,7 +815,7 @@ export default function App() {
             </div>
             <span className="font-display font-black text-white text-sm">NexusHub <span className="text-white/40">Global Solutions</span></span>
           </div>
-          <p className="font-body text-white/20 text-xs text-center">© 2026 Nexus Hub Global Solutions · Coimbatore, Tamil Nadu, India</p>
+          <p className="font-body text-white/20 text-xs text-center">© 2026 Nexus Hub Global Solutions · Coimbatore, India</p>
           <a
             href="https://linkedin.com"
             target="_blank"
