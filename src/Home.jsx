@@ -816,7 +816,8 @@ export default function App() {
               <p className="font-body text-black/45 text-sm leading-relaxed mb-12 max-w-sm">Reach out to discuss your ServiceNow needs. Our team responds within one business day.</p>
               <div className="space-y-5">
                 {[
-                  { label:"Phone",    val:"+91 98765 43210" },
+                  { label:"Phone",    val:"+91 98765 43210 "   },
+                  {val:"+91 9566994093"},
                   { label:"General",  val:"sales@nexushubglobalsolutions.com" },
                   { label:"Location", val:"Trichy Rd, near ELGI, Nadar Colony, Coimbatore, India 641018" },
                 ].map(c => (
@@ -828,7 +829,7 @@ export default function App() {
               </div>
               <div className="mt-10">
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/nexus-hub-global-solutions/"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{background:"#111",color:"#fff",display:"inline-flex",alignItems:"center",gap:"10px",padding:"12px 22px",borderRadius:"10px",fontWeight:"600",fontSize:"14px",textDecoration:"none",transition:"all .25s",fontFamily:"'Outfit',sans-serif"}}
@@ -958,7 +959,7 @@ export default function App() {
           </div>
           <p className="font-body text-white/20 text-xs text-center">© 2026 Nexus Hub Global Solutions · Coimbatore, India</p>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/company/nexus-hub-global-solutions/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all duration-200 text-xs font-body font-medium"
