@@ -137,7 +137,7 @@ const ModuleDropdown = ({ selected, setSelected }) => {
             selected.map(s => (
               <span key={s.code} style={{
                 display:"inline-flex", alignItems:"center", gap:"5px",
-                background:"#111", color:"#fff", fontSize:"11px", fontFamily:"monospace",
+                background:"#2C1810", color:"#fff", fontSize:"11px", fontFamily:"monospace",
                 fontWeight:"700", padding:"3px 8px", borderRadius:"6px", letterSpacing:".03em",
               }}>
                 {s.code}
@@ -299,101 +299,98 @@ export default function App() {
         *, body        { font-family: 'Outfit', sans-serif; }
 
         /* ── NAV ── */
-        .nav-wrap { background:#fff; border-bottom:1px solid #e5e5e5; }
-        .nav-link  { color:#111; font-weight:500; font-size:14px; transition:color .2s; position:relative; }
-        .nav-link::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#111; transition:width .25s; }
+        .nav-wrap { background:#2C1810; border-bottom:none; }
+        .nav-link  { color:#FFF; font-weight:500; font-size:14px; transition:color .2s; position:relative; }
+        .nav-link::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#FF6B35; transition:width .25s; }
         .nav-link:hover::after { width:100%; }
-        .nav-link:hover { color:#000; }
+        .nav-link:hover { color:#FF6B35; }
 
         /* ── Buttons ── */
-        .btn-dark  { background:#111; color:#fff; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:background .2s, transform .2s; display:inline-block; font-family:'Outfit',sans-serif; }
-        .btn-dark:hover  { background:#000; transform:translateY(-1px); }
-        .btn-ghost-dark  { background:transparent; color:#111; padding:13px 30px; border-radius:8px; font-weight:500; font-size:14px; border:1.5px solid #d0d0d0; cursor:pointer; transition:border-color .2s,color .2s; display:inline-block; }
-        .btn-ghost-dark:hover { border-color:#111; color:#000; }
-        .btn-light { background:#fff; color:#111; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:opacity .2s, transform .2s; display:inline-block; }
+        .btn-dark  { background:#2C1810; color:#fff; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:background .2s, transform .2s; display:inline-block; font-family:'Outfit',sans-serif; }
+        .btn-dark:hover  { background:#FF6B35; transform:translateY(-1px); }
+        .btn-ghost-dark  { background:transparent; color:#2C1810; padding:13px 30px; border-radius:8px; font-weight:500; font-size:14px; border:1.5px solid #d0d0d0; cursor:pointer; transition:border-color .2s,color .2s; display:inline-block; }
+        .btn-ghost-dark:hover { border-color:#FF6B35; color:#FF6B35; }
+        .btn-light { background:#FFF; color:#2C1810; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:opacity .2s, transform .2s; display:inline-block; }
         .btn-light:hover { opacity:.88; transform:translateY(-1px); }
         .btn-ghost-light { background:transparent; color:#fff; padding:13px 30px; border-radius:8px; font-weight:500; font-size:14px; border:1.5px solid rgba(255,255,255,.3); cursor:pointer; transition:border-color .2s; display:inline-block; }
-        .btn-ghost-light:hover { border-color:#fff; }
+        .btn-ghost-light:hover { border-color:#FF6B35; }
 
         /* ── GREY sections ── */
         .sec-hero    { background:#C8C8C8; }
         .hero-tag    { display:inline-flex; align-items:center; gap:8px; background:#d8d8d8; border:1px solid #b0b0b0; border-radius:999px; padding:7px 18px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#333; }
         .hero-divider{ height:1px; background:linear-gradient(90deg,transparent,#999,transparent); }
         .dot-grid-light { background-image:radial-gradient(#aaa 1px,transparent 1px); background-size:26px 26px; }
-        .live-dot { width:7px; height:7px; background:#22c55e; border-radius:50%; display:inline-block; animation:livepulse 2s ease-in-out infinite; flex-shrink:0; }
-        @keyframes livepulse { 0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,.3)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,.1)} }
+        .live-dot { width:7px; height:7px; background:#FF6B35; border-radius:50%; display:inline-block; animation:livepulse 2s ease-in-out infinite; flex-shrink:0; }
+        @keyframes livepulse { 0%,100%{box-shadow:0 0 0 2px rgba(255,107,53,.3)} 50%{box-shadow:0 0 0 5px rgba(255,107,53,.1)} }
 
         /* ── BUTTONS always enforce their own text color ── */
         .btn-dark, .btn-dark:hover, .btn-dark:focus  { color:#fff !important; }
-        .btn-ghost-dark, .btn-ghost-dark:hover       { color:#111 !important; }
-        .btn-light, .btn-light:hover                 { color:#111 !important; }
+        .btn-ghost-dark, .btn-ghost-dark:hover       { color:#2C1810 !important; }
+        .btn-light, .btn-light:hover                 { color:#2C1810 !important; }
         .btn-ghost-light, .btn-ghost-light:hover     { color:#fff !important; }
 
         /* ── Service code badges always white text ── */
-        .svc-badge { background:#111; color:#fff !important; padding:3px 10px; border-radius:999px; font-size:11px; font-family:monospace; font-weight:700; letter-spacing:.04em; display:inline-block; }
+        .svc-badge { background:#2C1810; color:#fff !important; padding:3px 10px; border-radius:999px; font-size:11px; font-family:monospace; font-weight:700; letter-spacing:.04em; display:inline-block; }
 
         /* ── MARQUEE ── */
-        .marquee-wrap-dark  { background:#111; border-top:1px solid #222; border-bottom:1px solid #222; }
+        .marquee-wrap-dark  { background:#2C1810; border-top:1px solid #1a0f0a; border-bottom:1px solid #1a0f0a; }
         .marquee-wrap-light { background:#C8C8C8; border-top:1px solid #b0b0b0; border-bottom:1px solid #b0b0b0; }
         .marquee-wrap-dark  .marquee-text { color:rgba(255,255,255,0.35) !important; }
         .marquee-wrap-light .marquee-text { color:rgba(0,0,0,0.7) !important; }
         .marquee { animation:marquee 24s linear infinite; white-space:nowrap; display:inline-block; }
         @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-        /* ── BLACK sections ── */
-        .sec-black   { background:#111; }
+        /* ── CHOCOLATE BROWN sections ── */
+        .sec-black   { background:#2C1810; }
 
         /* ── ABOUT accordions ── */
-        .about-accordion { border:1.5px solid #222; border-radius:14px; padding:22px 24px; background:#1a1a1a; cursor:pointer; transition:border-color .25s, background .25s, transform .25s, box-shadow .25s; position:relative; overflow:hidden; }
-        .about-accordion::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:#fff; border-radius:3px 0 0 3px; transform:scaleY(0); transition:transform .25s cubic-bezier(.22,1,.36,1); transform-origin:center; }
-        .about-accordion:hover { border-color:#444; background:#222; transform:translateX(4px); box-shadow: -4px 0 16px rgba(255,255,255,0.04); }
+        .about-accordion { border:1.5px solid #3E2723; border-radius:14px; padding:22px 24px; background:#3E2723; cursor:pointer; transition:border-color .25s, background .25s, transform .25s, box-shadow .25s; position:relative; overflow:hidden; }
+        .about-accordion::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:#FF6B35; border-radius:3px 0 0 3px; transform:scaleY(0); transition:transform .25s cubic-bezier(.22,1,.36,1); transform-origin:center; }
+        .about-accordion:hover { border-color:#FF6B35; background:#4A2F27; transform:translateX(4px); box-shadow: -4px 0 16px rgba(255,107,53,0.25); }
         .about-accordion:hover::before { transform:scaleY(1); }
 
         /* ── TEAM ── */
         .team-card { cursor:pointer; transition: border-color .25s, transform .25s, box-shadow .25s; position:relative; }
-        .team-card:hover { border-color:#000 !important; box-shadow: 0 8px 28px rgba(0,0,0,0.18); transform:translateY(-3px); }
-        .team-card.active { border-color:#000 !important; box-shadow: 0 0 0 2px #111; }
-        .team-card-hover-hint { position:absolute; bottom:12px; right:14px; background:#111; color:#fff !important; font-size:10px; font-family:'Outfit',sans-serif; font-weight:600; padding:4px 10px; border-radius:999px; opacity:0; transition:opacity .2s; pointer-events:none; letter-spacing:.03em; white-space:nowrap; }
+        .team-card:hover { border-color:#FF6B35 !important; box-shadow: 0 8px 28px rgba(255,107,53,0.2); transform:translateY(-3px); }
+        .team-card.active { border-color:#FF6B35 !important; box-shadow: 0 0 0 2px #FF6B35; }
+        .team-card-hover-hint { position:absolute; bottom:12px; right:14px; background:#2C1810; color:#fff !important; font-size:10px; font-family:'Outfit',sans-serif; font-weight:600; padding:4px 10px; border-radius:999px; opacity:0; transition:opacity .2s; pointer-events:none; letter-spacing:.03em; white-space:nowrap; }
         .team-card:hover .team-card-hover-hint { opacity:1; }
-        .member-panel { background:#111; border-radius:20px; overflow:hidden; transition: opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1); }
+        .member-panel { background:#2C1810; border-radius:20px; overflow:hidden; transition: opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1); }
         .member-panel.entering { opacity:0; transform:translateX(20px); }
         .member-panel.entered  { opacity:1; transform:translateX(0); }
         .expertise-tag { display:inline-block; padding:5px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.55); font-size:12px; font-family:'Outfit',sans-serif; }
-        .module-chip { display:inline-block; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,.06); color:rgba(255,255,255,.5); font-size:11px; font-family:monospace; font-weight:600; letter-spacing:.04em; border:1px solid rgba(255,255,255,.08); }
+        .module-chip { display:inline-block; padding:4px 10px; border-radius:6px; background:rgba(255,107,53,.15); color:#FF6B35; font-size:11px; font-family:monospace; font-weight:600; letter-spacing:.04em; border:1px solid rgba(255,107,53,.4); }
 
         /* ── decorators ── */
-        .line-deco { width:36px; height:2px; background:#fff; border-radius:2px; }
-        .line-deco-dark { width:36px; height:2px; background:#111; border-radius:2px; }
+        .line-deco { width:36px; height:2px; background:#FF6B35; border-radius:2px; }
+        .line-deco-dark { width:36px; height:2px; background:#FF6B35; border-radius:2px; }
 
         /* ── CONTACT inputs ── */
         .ci { background:#d8d8d8; border:1.5px solid #aaa; color:#111; width:100%; padding:13px 18px; border-radius:10px; font-size:14px; font-family:'Outfit',sans-serif; transition:border-color .2s, background .2s; }
-        .ci:focus { outline:none; border-color:#111; background:#ccc; }
+        .ci:focus { outline:none; border-color:#FF8C42; background:#ccc; }
         .ci::placeholder { color:#777; }
         .ci option { background:#d8d8d8; color:#111; }
 
         /* scrollbar */
         ::-webkit-scrollbar { width:4px; }
         ::-webkit-scrollbar-track { background:#c8c8c8; }
-        ::-webkit-scrollbar-thumb { background:#111; border-radius:2px; }
+        ::-webkit-scrollbar-thumb { background:#2C1810; border-radius:2px; }
 
         /* tag variants */
         .tag-dark  { display:inline-block; padding:4px 14px; border-radius:999px; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.5); }
         .tag-light { display:inline-block; padding:4px 14px; border-radius:999px; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border:1px solid #999; color:#444; background:rgba(0,0,0,0.06); }
 
         /* footer */
-        .footer-wrap { background:#111; border-top:1px solid #1e1e1e; }
+        .footer-wrap { background:#2C1810; border-top:1px solid #1a0f0a; }
       `}</style>
 
       {/* ══════════════════════════════════════
-          NAV — flush logo to far left
+          NAV — chocolate brown with logo and wavy bottom
       ══════════════════════════════════════ */}
-      <header className={`fixed top-0 left-0 right-0 z-50 nav-wrap transition-all duration-300 ${scrolled ? "shadow-sm" : ""}`}>
-        <div className="flex items-center justify-between h-16 md:h-18 w-full" style={{paddingLeft: "0px", paddingRight: "40px"}}>
+      <header className={`relative left-0 right-0 z-50 nav-wrap transition-all duration-300 ${scrolled ? "shadow-sm" : ""}`}>
+        <div className="flex items-center justify-between h-28 md:h-40 w-full" style={{paddingLeft: "0px", paddingRight: "40px"}}>
           <div className="flex items-center gap-3" style={{marginLeft: "0", paddingLeft: "0"}}>
-            <div style={{width:"36px", height:"36px", background:"#000", borderRadius:"0 0 12px 0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0}}>
-              <span className="text-white font-bebas text-lg leading-none">N</span>
-            </div>
-            <span className="font-display font-black text-xl text-black tracking-tight leading-none">NexusHub</span>
+            <img src="/images/logo.png" alt="Nexus Hub Logo" style={{height:"110px", width:"auto", maxWidth:"750px", objectFit:"contain"}} />
           </div>
 
           {/* Nav — centre */}
@@ -413,14 +410,27 @@ export default function App() {
           </div>
 
           <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
-            <div className={`w-5 h-px bg-black mb-1.5 transition-all origin-center ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <div className={`w-5 h-px bg-black mb-1.5 transition-all ${mobileOpen ? "opacity-0" : ""}`} />
-            <div className={`w-5 h-px bg-black transition-all origin-center ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <div className={`w-5 h-px bg-white mb-1.5 transition-all origin-center ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <div className={`w-5 h-px bg-white mb-1.5 transition-all ${mobileOpen ? "opacity-0" : ""}`} />
+            <div className={`w-5 h-px bg-white transition-all origin-center ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </div>
+
+        {/* Wavy Bottom - Much More Wavy */}
+        <svg className="w-full h-20 md:h-24" viewBox="0 0 1200 120" preserveAspectRatio="none" style={{display:"block"}}>
+          <defs>
+            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#2C1810" />
+              <stop offset="100%" stopColor="#2C1810" />
+            </linearGradient>
+          </defs>
+          <path d="M0,60 Q150,-20 300,60 T600,60 T900,60 T1200,60 L1200,120 L0,120 Z" fill="#2C1810" />
+          <path d="M0,70 Q150,-10 300,70 T600,70 T900,70 T1200,70 L1200,120 L0,120 Z" fill="#C8C8C8" opacity="1" />
+        </svg>
+
         {mobileOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 px-6 py-6 flex flex-col gap-5">
-            {NAV.map(l => <button key={l} onClick={() => go(l)} className="text-left text-black/70 hover:text-black text-sm font-medium font-body">{l}</button>)}
+          <div className="md:hidden bg-[#2C1810] border-t border-[#1a0f0a] px-6 py-6 flex flex-col gap-5">
+            {NAV.map(l => <button key={l} onClick={() => go(l)} className="text-left text-white/70 hover:text-white text-sm font-medium font-body">{l}</button>)}
             <button onClick={() => go("Contact")} className="btn-dark text-center">Let's Talk →</button>
           </div>
         )}
@@ -483,17 +493,17 @@ export default function App() {
                 <div style={{position:"relative", width:"58px", height:"58px"}}>
                   <div style={{
                     position:"absolute", top:"6px", left:"6px",
-                    width:"58px", height:"58px", background:"#1a6644",
+                    width:"58px", height:"58px", background:"#FF6B35",
                     borderRadius:"13px", transform:"skewY(-4deg)",
                   }} />
                   <div style={{
                     position:"absolute", top:"3px", left:"3px",
-                    width:"58px", height:"58px", background:"#1d7a4f",
+                    width:"58px", height:"58px", background:"#FF7F4D",
                     borderRadius:"13px", transform:"skewY(-2deg)",
                   }} />
                   <div style={{
                     position:"absolute", top:"0px", left:"0px",
-                    width:"58px", height:"58px", background:"#29c47a",
+                    width:"58px", height:"58px", background:"#FF8C5A",
                     borderRadius:"13px", display:"flex", alignItems:"center",
                     justifyContent:"center", flexDirection:"column", gap:"1px",
                   }}>
@@ -521,7 +531,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          2. ABOUT — BLACK bg, white text
+          2. ABOUT — CHOCOLATE BROWN bg, white text
       ══════════════════════════════════════ */}
       <section id="about" className="sec-black py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 md:gap-24 items-start">
@@ -619,7 +629,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          4. WHY US — BLACK bg, NO icons
+          4. WHY US — CHOCOLATE BROWN bg, NO icons
       ══════════════════════════════════════ */}
       <section className="sec-black py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -633,17 +643,17 @@ export default function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY.map((w, i) => (
               <Reveal key={w.t} delay={i * 0.08}>
-                <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
+                <div className="h-full p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-[#FF6B35] hover:bg-white/[0.05] transition-all duration-300 flex flex-col">
                   {/* Number instead of icon */}
-                  <div style={{fontSize:"11px", fontFamily:"monospace", color:"rgba(255,255,255,0.2)", fontWeight:"700", letterSpacing:".1em", marginBottom:"16px"}}>
+                  <div style={{fontSize:"11px", fontFamily:"monospace", color:"#FF6B35", fontWeight:"700", letterSpacing:".1em", marginBottom:"16px"}}>
                     {String(i + 1).padStart(2, "0")}
                   </div>
                   <h3 className="font-display font-bold text-white text-xl mb-3">{w.t}</h3>
                   <div className="line-deco mb-4" />
                   <p className="font-body text-white/40 text-sm leading-relaxed mb-5 flex-1">{w.d}</p>
-                  <div style={{display:"inline-flex", alignItems:"center", gap:"6px", padding:"6px 12px", borderRadius:"8px", background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", width:"fit-content"}}>
-                    <div style={{width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,255,255,0.4)", flexShrink:0}} />
-                    <span style={{color:"rgba(255,255,255,0.5)", fontSize:"11px", fontFamily:"'Outfit',sans-serif", fontWeight:500}}>{w.highlight}</span>
+                  <div style={{display:"inline-flex", alignItems:"center", gap:"6px", padding:"6px 12px", borderRadius:"8px", background:"rgba(255,107,53,0.15)", border:"1px solid rgba(255,107,53,0.4)", width:"fit-content"}}>
+                    <div style={{width:"5px", height:"5px", borderRadius:"50%", background:"#FF6B35", flexShrink:0}} />
+                    <span style={{color:"#FF6B35", fontSize:"11px", fontFamily:"'Outfit',sans-serif", fontWeight:500}}>{w.highlight}</span>
                   </div>
                 </div>
               </Reveal>
@@ -660,7 +670,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          5. TEAM — GREY bg, Gokul: Co-Founder & CTO
+          5. TEAM — GREY bg
       ══════════════════════════════════════ */}
       <section id="team" className="sec-hero py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -701,7 +711,7 @@ export default function App() {
             </div>
 
             {selectedMember && (
-              <div className="member-panel entered flex-1 min-w-0 flex flex-col" style={{background:"#111", borderRadius:"16px", overflow:"hidden"}}>
+              <div className="member-panel entered flex-1 min-w-0 flex flex-col" style={{background:"#2C1810", borderRadius:"16px", overflow:"hidden"}}>
                 <div style={{padding:"22px 22px 18px 22px", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0}}>
                   <div>
                     <h3 className="font-display font-bold text-white" style={{fontSize:"1.4rem", lineHeight:1.15, marginBottom:"4px"}}>{selectedMember.name}</h3>
@@ -709,9 +719,9 @@ export default function App() {
                   </div>
                   <button
                     onClick={(e) => { e.stopPropagation(); setSelectedMember(null); }}
-                    style={{background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"8px", width:"32px", height:"32px", display:"flex", alignItems:"center", justifyContent:"center", color:"rgba(255,255,255,0.5)", fontSize:"16px", cursor:"pointer", flexShrink:0, lineHeight:1}}
-                    onMouseEnter={e => { e.currentTarget.style.background="rgba(255,255,255,0.12)"; e.currentTarget.style.color="#fff"; }}
-                    onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,0.06)"; e.currentTarget.style.color="rgba(255,255,255,0.5)"; }}
+                    style={{background:"rgba(255,107,53,0.15)", border:"1px solid rgba(255,107,53,0.3)", borderRadius:"8px", width:"32px", height:"32px", display:"flex", alignItems:"center", justifyContent:"center", color:"#FF6B35", fontSize:"16px", cursor:"pointer", flexShrink:0, lineHeight:1}}
+                    onMouseEnter={e => { e.currentTarget.style.background="rgba(255,107,53,0.25)"; e.currentTarget.style.color="#FF6B35"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background="rgba(255,107,53,0.15)"; e.currentTarget.style.color="#FF6B35"; }}
                   >×</button>
                 </div>
                 <div style={{display:"flex", flex:1, minHeight:0, overflow:"hidden"}}>
@@ -753,7 +763,7 @@ export default function App() {
                       <img src={selectedMember.photo} alt={selectedMember.name}
                         style={{width:"100%", height:"100%", objectFit:"cover", objectPosition:"center 15%", display:"block"}} />
                     ) : (
-                      <div style={{width:"100%", height:"100%", background:"#1a1a1a", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                      <div style={{width:"100%", height:"100%", background:"#3E2723", display:"flex", alignItems:"center", justifyContent:"center"}}>
                         <span style={{fontFamily:"'Playfair Display',serif", fontWeight:"700", fontSize:"4rem", color:"rgba(255,255,255,0.12)"}}>{selectedMember.initials}</span>
                       </div>
                     )}
@@ -773,7 +783,7 @@ export default function App() {
       </div>
 
       {/* ══════════════════════════════════════
-          6. CTA — BLACK bg
+          6. CTA — CHOCOLATE BROWN bg
       ══════════════════════════════════════ */}
       <section className="sec-black py-20 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
@@ -832,9 +842,9 @@ export default function App() {
                   href="https://www.linkedin.com/company/nexus-hub-global-solutions/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{background:"#111",color:"#fff",display:"inline-flex",alignItems:"center",gap:"10px",padding:"12px 22px",borderRadius:"10px",fontWeight:"600",fontSize:"14px",textDecoration:"none",transition:"all .25s",fontFamily:"'Outfit',sans-serif"}}
-                  onMouseEnter={e => { e.currentTarget.style.background="#0a66c2"; e.currentTarget.style.transform="translateY(-1px)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background="#111"; e.currentTarget.style.transform="translateY(0)"; }}
+                  style={{background:"#2C1810",color:"#fff",display:"inline-flex",alignItems:"center",gap:"10px",padding:"12px 22px",borderRadius:"10px",fontWeight:"600",fontSize:"14px",textDecoration:"none",transition:"all .25s",fontFamily:"'Outfit',sans-serif"}}
+                  onMouseEnter={e => { e.currentTarget.style.background="#FF6B35"; e.currentTarget.style.transform="translateY(-1px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background="#2C1810"; e.currentTarget.style.transform="translateY(0)"; }}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -851,7 +861,7 @@ export default function App() {
               {/* Success state */}
               {formStatus === "success" ? (
                 <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"16px", padding:"48px 24px", textAlign:"center"}}>
-                  <div style={{width:"56px", height:"56px", borderRadius:"50%", background:"#111", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                  <div style={{width:"56px", height:"56px", borderRadius:"50%", background:"#2C1810", display:"flex", alignItems:"center", justifyContent:"center"}}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
                   <div>
@@ -952,10 +962,7 @@ export default function App() {
       <footer className="footer-wrap py-10 px-6 md:px-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center">
-              <span className="font-bebas text-black text-sm leading-none">N</span>
-            </div>
-            <span className="font-display font-black text-white text-sm">NexusHub <span className="text-white/40">Global Solutions</span></span>
+            <img src="/images/logo.png" alt="Nexus Hub Logo" style={{height:"85px", width:"auto", maxWidth:"550px", objectFit:"contain"}} />
           </div>
           <p className="font-body text-white/20 text-xs text-center">© 2026 Nexus Hub Global Solutions · Coimbatore, India</p>
           <a
