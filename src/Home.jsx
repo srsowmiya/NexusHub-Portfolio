@@ -859,21 +859,70 @@ export default function App() {
             <div className="bg-[#d4d4d4] border border-[#b0b0b0] rounded-2xl p-8">
               <h3 className="font-display font-bold text-black text-xl mb-8">Send a Message</h3>
 
-              {/* Success state */}
+              {/* Success state - Custom CSS Celebration */}
               {formStatus === "success" ? (
-                <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"16px", padding:"48px 24px", textAlign:"center"}}>
-                  <div style={{width:"56px", height:"56px", borderRadius:"50%", background:"#2C1810", display:"flex", alignItems:"center", justifyContent:"center"}}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"24px", padding:"60px 24px", textAlign:"center", minHeight:"500px", position:"relative", overflow:"hidden"}}>
+                  {/* Confetti */}
+                  {[...Array(15)].map((_, i) => (
+                    <div key={i} style={{
+                      position:"absolute",
+                      width:"10px",
+                      height:"10px",
+                      background:["#FF6B35", "#2C1810", "#FF6B35", "#C8C8C8"][Math.floor(Math.random() * 4)],
+                      borderRadius:"50%",
+                      animation:`confetti-fall ${2 + Math.random() * 1}s ease-in forwards`,
+                      left:`${Math.random() * 100}%`,
+                      top:"-10px",
+                      opacity:0.8
+                    }} />
+                  ))}
+                  
+                  {/* Success Checkmark */}
+                  <div style={{
+                    position:"relative",
+                    zIndex:10,
+                    animation:"scale-in 0.6s cubic-bezier(.22,1,.36,1)"
+                  }}>
+                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="60" cy="60" r="55" fill="#FF6B35" opacity="0.1" />
+                      <circle cx="60" cy="60" r="50" fill="none" stroke="#FF6B35" strokeWidth="3" strokeDasharray="314" strokeDashoffset="314" style={{animation:"stroke-dash 0.8s ease forwards"}} />
+                      <path d="M40 60L55 75L85 45" stroke="#FF6B35" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="50" strokeDashoffset="50" style={{animation:"stroke-dash 0.8s ease 0.2s forwards"}} />
+                    </svg>
                   </div>
-                  <div>
-                    <div className="font-display font-bold text-black text-xl mb-2">Message Sent!</div>
-                    <p className="font-body text-black/50 text-sm">We'll get back to you within one business day.</p>
+
+                  <div style={{position:"relative", zIndex:10}}>
+                    <div className="font-display font-bold text-black" style={{fontSize:"2rem", marginBottom:"12px"}}>Message Sent!</div>
+                    <p className="font-body text-black/60 text-base" style={{marginBottom:"24px", maxWidth:"400px"}}>Thank you! We'll get back to you within one business day.</p>
+                    <button
+                      onClick={() => setFormStatus("idle")}
+                      className="btn-ghost-dark"
+                      style={{padding:"12px 28px", fontSize:"14px", fontWeight:"600"}}
+                    >Send Another Message →</button>
                   </div>
-                  <button
-                    onClick={() => setFormStatus("idle")}
-                    className="btn-ghost-dark"
-                    style={{marginTop:"8px", padding:"10px 24px", fontSize:"13px"}}
-                  >Send Another →</button>
+
+                  <style>{`
+                    @keyframes confetti-fall {
+                      to {
+                        transform: translateY(400px) rotate(360deg);
+                        opacity: 0;
+                      }
+                    }
+                    @keyframes scale-in {
+                      from {
+                        transform: scale(0);
+                        opacity: 0;
+                      }
+                      to {
+                        transform: scale(1);
+                        opacity: 1;
+                      }
+                    }
+                    @keyframes stroke-dash {
+                      to {
+                        stroke-dashoffset: 0;
+                      }
+                    }
+                  `}</style>
                 </div>
               ) : (
                 <div className="space-y-4">
