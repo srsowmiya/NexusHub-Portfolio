@@ -307,11 +307,11 @@ export default function App() {
 
         /* ── Buttons ── */
         .btn-dark  { background:#2C1810; color:#fff; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:background .2s, transform .2s; display:inline-block; font-family:'Outfit',sans-serif; }
-        .btn-dark:hover  { background:#FF6B35; transform:translateY(-1px); }
+        .btn-dark:hover  { background:#3E2723; transform:translateY(-1px); }
         .btn-ghost-dark  { background:transparent; color:#2C1810; padding:13px 30px; border-radius:8px; font-weight:500; font-size:14px; border:1.5px solid #d0d0d0; cursor:pointer; transition:border-color .2s,color .2s; display:inline-block; }
-        .btn-ghost-dark:hover { border-color:#FF6B35; color:#FF6B35; }
-        .btn-light { background:#FFF; color:#2C1810; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:opacity .2s, transform .2s; display:inline-block; }
-        .btn-light:hover { opacity:.88; transform:translateY(-1px); }
+        .btn-ghost-dark:hover { border-color:#2C1810; color:#2C1810; }
+        .btn-light { background:#FF6B35; color:#fff; padding:13px 30px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; transition:opacity .2s, transform .2s; display:inline-block; }
+        .btn-light:hover { background:#E55A25; transform:translateY(-1px); }
         .btn-ghost-light { background:transparent; color:#fff; padding:13px 30px; border-radius:8px; font-weight:500; font-size:14px; border:1.5px solid rgba(255,255,255,.3); cursor:pointer; transition:border-color .2s; display:inline-block; }
         .btn-ghost-light:hover { border-color:#FF6B35; }
 
@@ -391,6 +391,7 @@ export default function App() {
         <div className="flex items-center justify-between h-28 md:h-40 w-full" style={{paddingLeft: "0px", paddingRight: "40px"}}>
           <div className="flex items-center gap-3" style={{marginLeft: "0", paddingLeft: "0"}}>
             <img src="/images/logo.png" alt="Nexus Hub Logo" style={{height:"110px", width:"auto", maxWidth:"750px", objectFit:"contain"}} />
+            <span className="font-bebas text-[clamp(1.5rem,4vw,2.8rem)] leading-none" style={{color:"#FF6B35", letterSpacing:"0.04em"}}>NexusHub</span>
           </div>
 
           {/* Nav — centre */}
@@ -406,7 +407,7 @@ export default function App() {
               <span className="live-dot" />
               Open to work
             </div>
-            <button onClick={() => go("Contact")} className="btn-dark">Let's Talk →</button>
+            <button onClick={() => go("Contact")} className="btn-dark" style={{background:"#FF6B35"}} onMouseEnter={(e) => e.target.style.background="#E55A25"} onMouseLeave={(e) => e.target.style.background="#FF6B35"}>Let's Talk →</button>
           </div>
 
           <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -431,7 +432,7 @@ export default function App() {
         {mobileOpen && (
           <div className="md:hidden bg-[#2C1810] border-t border-[#1a0f0a] px-6 py-6 flex flex-col gap-5">
             {NAV.map(l => <button key={l} onClick={() => go(l)} className="text-left text-white/70 hover:text-white text-sm font-medium font-body">{l}</button>)}
-            <button onClick={() => go("Contact")} className="btn-dark text-center">Let's Talk →</button>
+            <button onClick={() => go("Contact")} className="btn-dark text-center" style={{background:"#FF6B35"}} onMouseEnter={(e) => e.target.style.background="#E55A25"} onMouseLeave={(e) => e.target.style.background="#FF6B35"}>Let's Talk →</button>
           </div>
         )}
       </header>
@@ -843,7 +844,7 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{background:"#2C1810",color:"#fff",display:"inline-flex",alignItems:"center",gap:"10px",padding:"12px 22px",borderRadius:"10px",fontWeight:"600",fontSize:"14px",textDecoration:"none",transition:"all .25s",fontFamily:"'Outfit',sans-serif"}}
-                  onMouseEnter={e => { e.currentTarget.style.background="#FF6B35"; e.currentTarget.style.transform="translateY(-1px)"; }}
+                  onMouseEnter={e => { e.currentTarget.style.background="#3E2723"; e.currentTarget.style.transform="translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background="#2C1810"; e.currentTarget.style.transform="translateY(0)"; }}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
@@ -970,6 +971,9 @@ export default function App() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all duration-200 text-xs font-body font-medium"
+            style={{borderColor:"#FF6B35", color:"#FF6B35"}}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor="#E55A25"; e.currentTarget.style.color="#E55A25"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor="#FF6B35"; e.currentTarget.style.color="#FF6B35"; }}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
